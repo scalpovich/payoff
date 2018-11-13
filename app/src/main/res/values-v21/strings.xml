@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="buttonDiscover">Discover</string>
+    <string name="buttonSend">SEND</string>
+    <string name="textViewMessage">Enter Message here</string>
+</resources>
