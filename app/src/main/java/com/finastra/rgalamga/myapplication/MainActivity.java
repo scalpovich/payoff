@@ -1,8 +1,10 @@
 package com.finastra.rgalamga.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     ListView listView;
     TextView readMessageBox,connectionStatus;
     EditText writeMessage;
+    private LinearLayout parentLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        parentLinearLayout = findViewById(R.id.discoveredPeers);
     }
 
     @Override
@@ -106,5 +110,27 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onDiscover(View v) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.field, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+    }
+
+    public void onDelete(View v) {
+        parentLinearLayout.removeView((View) v.getParent());
+    }
+
+    public void onSendMoney(View v) {
+        TextView amountToSend = findViewById(R.id.idInputAmount);
+        TextView eWalletAmount = findViewById(R.id.eWalletAmount);
+        String amountToSendStr = amountToSend.getText() + "";
+        String eWalletAmountStr = eWalletAmount.getText() +"";
+        double oldValue = Double.parseDouble(eWalletAmountStr);
+        double subtractedValue = Double.parseDouble(amountToSendStr);
+        double newBalance = oldValue - subtractedValue;
+        eWalletAmount.setText(newBalance + "");
     }
 }
