@@ -2,5 +2,13 @@
 <resources>
     <string name="buttonDiscover">Discover</string>
     <string name="buttonSend">SEND</string>
-    <string name="textViewMessage">Enter Message here</string>
+    <string name="inputAmount">Enter Amount here</string>
+    <string name="buttonRequest">REQUEST</string>
+    <string name="wifiOnOff">Wifi on off</string>
+    <string name="eWallet">Balance:</string>
+    <string name="eWalletAmount">500</string>
+    <string name="lbl_amtToSend">Amount:</string>
+    <string name="logout">Logout</string>
+    <string name="support">Support</string>
+    <string name="navTitleOthers">Others</string>
 </resources>
