@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.finastra.rgalamga.myapplication">
+    package="com.finastra.payments.payoff">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.finastra.payments.payoff.MainActivity"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.finastra.payments.payoff.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.finastra.payments.payoff.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.finastra.rgalamga.myapplication.MainActivity" />
+                android:value="com.finastra.payments.payoff.MainActivity" />
         </activity>
     </application>
 

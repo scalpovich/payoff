@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.finastra.rgalamga.myapplication"
+        applicationId "com.finastra.payments.com.finastra.payments.payoff"
         minSdkVersion 25
         targetSdkVersion 28
         versionCode 1

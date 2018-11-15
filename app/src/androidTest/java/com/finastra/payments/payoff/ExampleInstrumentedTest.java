@@ -1,4 +1,4 @@
-package com.finastra.rgalamga.myapplication;
+package com.finastra.payments.payoff;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.finastra.rgalamga.myapplication", appContext.getPackageName());
+        assertEquals("com.finastra.payments.com.finastra.payments.payoff", appContext.getPackageName());
     }
 }
