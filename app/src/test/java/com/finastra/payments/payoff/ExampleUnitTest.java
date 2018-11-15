@@ -1,4 +1,4 @@
-package com.finastra.rgalamga.myapplication;
+package com.finastra.payments.payoff;
 
 import org.junit.Test;
 
