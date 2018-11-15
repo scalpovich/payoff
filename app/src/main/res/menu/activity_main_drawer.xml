@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/navBankAccount" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -24,6 +24,11 @@
 
     <item android:title="@string/navTitleOthers">
         <menu>
+            <item
+                android:id="@+id/navLoginAccount"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/loginAccount"/>
+
             <item
                 android:id="@+id/navSupport"
                 android:icon="@drawable/ic_menu_share"
