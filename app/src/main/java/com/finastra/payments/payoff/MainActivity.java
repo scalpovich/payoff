@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
     IntentFilter intentFilter;
     ListView discoveredPeersList;
     WifiManager wifiManager;
-    WifiP2pManager.PeerListListener peerListListener;
 
     List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     String[] deviceNameArray;
@@ -60,44 +59,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         init();
         initWifiDirectComponents();
-
-         peerListListener = new WifiP2pManager.PeerListListener() {
-            @Override
-            public void onPeersAvailable (WifiP2pDeviceList peerlist) {
-               Log.i("Main","PEERS AVAILABLE");
-               Log.i("Main",String.valueOf(peerlist.getDeviceList().size()));
-                if(!peerlist.getDeviceList().equals(peers)){
-                    peers.clear();
-                    peers.addAll(peerlist.getDeviceList());
-                    deviceNameArray = new String[peerlist.getDeviceList().size()];
-                    deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
-                    int index = 0;
-                    for (WifiP2pDevice device : peerlist.getDeviceList()) {
-                        deviceNameArray[index] = device.deviceName;
-                        deviceArray[index] = device;
-                        index++;
-                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        View rowView = inflater.inflate(R.layout.field, null);
-                        TextView textView = (TextView) rowView;
-                        Toast.makeText(getApplicationContext(),"Device Name: "+device.deviceName,Toast.LENGTH_SHORT).show();
-                        textView.setText(device.deviceName);
-                        View newView = textView;
-                        // Add the new row before the add field button.
-                        parentLinearLayout.addView(newView, parentLinearLayout.getChildCount() - 1);
-                    }
-                    /*   ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,deviceNameArray);
-                     *//*
-                parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);*//*
-               // Toast.makeText(getApplicationContext(),deviceNameArray,Toast.LENGTH_SHORT).show();
-                *//*discoveredPeers*//*
-                //parentLinearLayout.setAdapter(adapter);*/
-                }
-                if (peers.size() == 0) {
-                    Toast.makeText(getApplicationContext(),"No device found",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        };
     }
 
     public void init() {
@@ -228,7 +189,7 @@ public class MainActivity extends AppCompatActivity
             wifiP2pManager.discoverPeers(channel,new WifiP2pManager.ActionListener(){
                 @Override
                 public void onSuccess() {
-                    //Toast.makeText(getApplicationContext(), "Discovery started", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Discovery started", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -241,6 +202,44 @@ public class MainActivity extends AppCompatActivity
             wifiManager.setWifiEnabled(true);
         }
     }
+
+    public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
+        @Override
+        public void onPeersAvailable (WifiP2pDeviceList peerlist) {
+            Log.i("Main","PEERS AVAILABLE");
+            Log.i("Main",String.valueOf(peerlist.getDeviceList().size()));
+            if(!peerlist.getDeviceList().equals(peers)){
+                peers.clear();
+                peers.addAll(peerlist.getDeviceList());
+                deviceNameArray = new String[peerlist.getDeviceList().size()];
+                deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
+                int index = 0;
+                for (WifiP2pDevice device : peerlist.getDeviceList()) {
+                    deviceNameArray[index] = device.deviceName;
+                    deviceArray[index] = device;
+                    index++;
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View rowView = inflater.inflate(R.layout.field, null);
+                    TextView textView = (TextView) rowView;
+                    Toast.makeText(getApplicationContext(),"Device Name: "+device.deviceName,Toast.LENGTH_SHORT).show();
+                    textView.setText(device.deviceName);
+                    View newView = textView;
+                    // Add the new row before the add field button.
+                    parentLinearLayout.addView(newView, parentLinearLayout.getChildCount() - 1);
+                }
+                /*   ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,deviceNameArray);
+                 *//*
+                parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);*//*
+               // Toast.makeText(getApplicationContext(),deviceNameArray,Toast.LENGTH_SHORT).show();
+                *//*discoveredPeers*//*
+                //parentLinearLayout.setAdapter(adapter);*/
+            }
+            if (peers.size() == 0) {
+                Toast.makeText(getApplicationContext(),"No device found",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+    };
 
     @Override
     public void onResume() {

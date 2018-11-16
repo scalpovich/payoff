@@ -41,7 +41,8 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             // Call WifiP2pManager.requestPeers() to get a list of current peers
             Toast.makeText(context,"Requesting peers",Toast.LENGTH_SHORT).show();
             if (wifiP2pManager != null) {
-                wifiP2pManager.requestPeers(channel, myPeerListListener);
+                Toast.makeText(context,"Wifip2pManager is not null",Toast.LENGTH_SHORT).show();
+                wifiP2pManager.requestPeers(channel, mainActivity.peerListListener);
             }
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             // Respond to new connection or disconnections
