@@ -33,6 +33,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="navBankAccount">Bank Account</string>
+    <string name="navBankAccount">My Bank Accounts</string>
     <string name="loginAccount">My Account</string>
+    <string name="lblFxChange">FX Exchange Rate</string>
 </resources>
