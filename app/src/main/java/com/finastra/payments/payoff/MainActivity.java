@@ -217,9 +217,11 @@ public class MainActivity extends AppCompatActivity
             peers.addAll(peerlist.getDeviceList());
             deviceNameArray = new String[peerlist.getDeviceList().size()];
             deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
+            Log.i("DEVICES NAME: ", String.valueOf(peerlist.getDeviceList().size()));
             int index = 0;
             for (WifiP2pDevice device : peerlist.getDeviceList()) {
                 deviceNameArray[index] = device.deviceName;
+
                 deviceArray[index] = device;
                 index++;
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
