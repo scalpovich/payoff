@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.navLogut) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            wifiManager.setWifiEnabled(false);
             startActivity(intent);
         }
 
@@ -219,24 +220,15 @@ public class MainActivity extends AppCompatActivity
             int index = 0;
             for (WifiP2pDevice device : peerlist.getDeviceList()) {
                 deviceNameArray[index] = device.deviceName;
-                Log.i("Main",device.deviceName);
                 deviceArray[index] = device;
                 index++;
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View rowView = inflater.inflate(R.layout.field, null);
-                TextView textView = (TextView) rowView;
-                Toast.makeText(getApplicationContext(), "Device Name: " + device.deviceName, Toast.LENGTH_SHORT).show();
+                TextView textView = rowView.findViewById(R.id.number_edit_text);
                 textView.setText(device.deviceName);
-                View newView = textView;
                 // Add the new row before the add field button.
-                parentLinearLayout.addView(newView, parentLinearLayout.getChildCount() - 1);
+                parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
             }
-            /*   ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,deviceNameArray);
-             *//*
-                parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);*//*
-               // Toast.makeText(getApplicationContext(),deviceNameArray,Toast.LENGTH_SHORT).show();
-                *//*discoveredPeers*//*
-                //parentLinearLayout.setAdapter(adapter);*/
         }
         if (peers.size() == 0) {
             Toast.makeText(getApplicationContext(), "No device found", Toast.LENGTH_SHORT).show();
