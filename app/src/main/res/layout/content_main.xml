@@ -51,6 +51,7 @@
         android:layout_height="43dp"
         android:importantForAutofill="no"
         android:inputType="phone"
+        android:text="@string/defaultValueForInputAmount"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/colorPrimary"
         android:textStyle="normal|bold|italic"

@@ -37,7 +37,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, WifiP2pManager.PeerListListener {
 
     //Instance variables
     private LinearLayout parentLinearLayout;
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -196,7 +195,7 @@ public class MainActivity extends AppCompatActivity
             wifiP2pManager.discoverPeers(channel,new WifiP2pManager.ActionListener(){
                 @Override
                 public void onSuccess() {
-                    Toast.makeText(getApplicationContext(), "Discovery started", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Discovery started", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -210,42 +209,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
-        @Override
-        public void onPeersAvailable (WifiP2pDeviceList peerlist) {
-            if(!peerlist.getDeviceList().equals(peers)){
-                Toast.makeText(getApplicationContext(),"Peers available",Toast.LENGTH_SHORT).show();
-                peers.clear();
-                peers.addAll(peerlist.getDeviceList());
-                deviceNameArray = new String[peerlist.getDeviceList().size()];
-                deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
-                int index = 0;
-                for (WifiP2pDevice device : peerlist.getDeviceList()) {
-                    deviceNameArray[index] = device.deviceName;
-                    deviceArray[index] = device;
-                    index++;
-                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View rowView = inflater.inflate(R.layout.field, null);
-                    TextView textView = (TextView) rowView;
-                    Toast.makeText(getApplicationContext(),"Device Name: "+device.deviceName,Toast.LENGTH_SHORT).show();
-                    textView.setText(device.deviceName);
-                    View newView = textView;
-                    // Add the new row before the add field button.
-                    parentLinearLayout.addView(newView, parentLinearLayout.getChildCount() - 1);
-                }
-                /*   ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,deviceNameArray);
-                 *//*
+
+    @Override
+    public void onPeersAvailable(WifiP2pDeviceList peerlist) {
+        if (!peerlist.getDeviceList().equals(peers)) {
+            peers.clear();
+            peers.addAll(peerlist.getDeviceList());
+            deviceNameArray = new String[peerlist.getDeviceList().size()];
+            deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
+            int index = 0;
+            for (WifiP2pDevice device : peerlist.getDeviceList()) {
+                deviceNameArray[index] = device.deviceName;
+                Toast.makeText(getApplicationContext(), device.deviceName, Toast.LENGTH_SHORT).show();
+                deviceArray[index] = device;
+                index++;
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View rowView = inflater.inflate(R.layout.field, null);
+                TextView textView = (TextView) rowView;
+                Toast.makeText(getApplicationContext(), "Device Name: " + device.deviceName, Toast.LENGTH_SHORT).show();
+                textView.setText(device.deviceName);
+                View newView = textView;
+                // Add the new row before the add field button.
+                parentLinearLayout.addView(newView, parentLinearLayout.getChildCount() - 1);
+            }
+            /*   ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,deviceNameArray);
+             *//*
                 parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);*//*
                // Toast.makeText(getApplicationContext(),deviceNameArray,Toast.LENGTH_SHORT).show();
                 *//*discoveredPeers*//*
                 //parentLinearLayout.setAdapter(adapter);*/
-            }
-            if (peers.size() == 0) {
-                Toast.makeText(getApplicationContext(),"No device found",Toast.LENGTH_SHORT).show();
-                return;
-            }
         }
-    };
+        if (peers.size() == 0) {
+            Toast.makeText(getApplicationContext(), "No device found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
 
     @Override
     public void onResume() {

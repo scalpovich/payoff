@@ -36,4 +36,6 @@
     <string name="navBankAccount">My Bank Accounts</string>
     <string name="loginAccount">My Account</string>
     <string name="lblFxChange">FX Exchange Rate</string>
+    <string name="defaultValueForInputAmount">0.0</string>
+    <string name="defaultLogin">user1@gmail.com</string>
 </resources>
