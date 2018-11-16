@@ -49,6 +49,7 @@
         android:id="@+id/idInputAmount"
         android:layout_width="146dp"
         android:layout_height="43dp"
+        android:hint="0.0"
         android:importantForAutofill="no"
         android:inputType="phone"
         android:textColor="@color/colorPrimary"
