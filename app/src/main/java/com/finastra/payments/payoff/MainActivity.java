@@ -166,18 +166,25 @@ public class MainActivity extends AppCompatActivity
         TextView amountToSend = findViewById(R.id.idInputAmount);
         TextView eWalletAmount = findViewById(R.id.eWalletAmount);
         String amountToSendStr = amountToSend.getText() + "";
-        String eWalletAmountStr = eWalletAmount.getText() +"";
-        double oldValue = Double.parseDouble(eWalletAmountStr);
-        double subtractedValue = Double.parseDouble(amountToSendStr);
-        View focusView;
-        if (subtractedValue > oldValue) {
+        Log.i("AMOUNT TO SEND: ",amountToSendStr);
+        if(!amountToSendStr.equals("")) {
+            String eWalletAmountStr = eWalletAmount.getText() +"";
+            double oldValue = Double.parseDouble(eWalletAmountStr);
+            double subtractedValue = Double.parseDouble(amountToSendStr);
+            if (subtractedValue > oldValue) {
+                Context context = getApplicationContext();
+                CharSequence text = "Amount to send is greater than the balance";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            } else {
+                double newBalance = oldValue - subtractedValue;
+                eWalletAmount.setText(newBalance + "");
+            }
+        } else {
             Context context = getApplicationContext();
-            CharSequence text = "Amount to send is greater than the balance";
+            CharSequence text = "Invalid amount";
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
-        } else {
-            double newBalance = oldValue - subtractedValue;
-            eWalletAmount.setText(newBalance + "");
         }
     }
 
@@ -206,9 +213,8 @@ public class MainActivity extends AppCompatActivity
     public WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
         @Override
         public void onPeersAvailable (WifiP2pDeviceList peerlist) {
-            Log.i("Main","PEERS AVAILABLE");
-            Log.i("Main",String.valueOf(peerlist.getDeviceList().size()));
             if(!peerlist.getDeviceList().equals(peers)){
+                Toast.makeText(getApplicationContext(),"Peers available",Toast.LENGTH_SHORT).show();
                 peers.clear();
                 peers.addAll(peerlist.getDeviceList());
                 deviceNameArray = new String[peerlist.getDeviceList().size()];
