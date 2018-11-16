@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = wifiP2pManager.initialize(this,getMainLooper(),null);
         broadcastReceiver = new WiFiDirectBroadcastReceiver(wifiP2pManager,channel,this);
-
+        wifiManager.setWifiEnabled(true);
         intentFilter = new IntentFilter();
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
@@ -191,11 +191,10 @@ public class MainActivity extends AppCompatActivity
 
     public void onDiscover(View v) {
         if(wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
             wifiP2pManager.discoverPeers(channel,new WifiP2pManager.ActionListener(){
                 @Override
                 public void onSuccess() {
-                    //Toast.makeText(getApplicationContext(), "Discovery started", Toast.LENGTH_SHORT).show();
+                    Log.i("Main:","Discovery started");
                 }
 
                 @Override
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity
             int index = 0;
             for (WifiP2pDevice device : peerlist.getDeviceList()) {
                 deviceNameArray[index] = device.deviceName;
-                Toast.makeText(getApplicationContext(), device.deviceName, Toast.LENGTH_SHORT).show();
+                Log.i("Main",device.deviceName);
                 deviceArray[index] = device;
                 index++;
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
