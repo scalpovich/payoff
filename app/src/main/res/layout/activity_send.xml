@@ -14,7 +14,7 @@
         android:text="@string/lbl_availableBalance"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scrollDiscoveredPeers"
-        app:layout_constraintEnd_toStartOf="@+id/idAvailableBalance"
+        app:layout_constraintEnd_toStartOf="@+id/idCurrentBalance"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_amount" />
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idAvailableBalance">
+        app:layout_constraintTop_toBottomOf="@+id/idCurrentBalance">
 
         <LinearLayout
             android:id="@+id/discoveredPeers"
@@ -48,7 +48,7 @@
         android:textColorHint="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="normal|bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/idAvailableBalance"
+        app:layout_constraintBottom_toTopOf="@+id/idCurrentBalance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/lbl_amount"
@@ -56,7 +56,7 @@
         tools:targetApi="o" />
 
     <TextView
-        android:id="@+id/idAvailableBalance"
+        android:id="@+id/idCurrentBalance"
         android:layout_width="141dp"
         android:layout_height="48dp"
         android:gravity="center"

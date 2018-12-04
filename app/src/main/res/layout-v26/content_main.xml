@@ -32,10 +32,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/availableBal" />
+        app:layout_constraintTop_toBottomOf="@+id/homeCurrentBal" />
 
     <TextView
-        android:id="@+id/idAvailableBalance"
+        android:id="@+id/idCurrentBalance"
         android:layout_width="243dp"
         android:layout_height="42dp"
         android:gravity="center"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/availableBal"
+        android:id="@+id/homeCurrentBal"
         android:layout_width="336dp"
         android:layout_height="148dp"
         android:text="@string/availableBal"
@@ -65,10 +65,10 @@
         android:id="@+id/spr_currencies"
         android:layout_width="243dp"
         android:layout_height="41dp"
-        app:layout_constraintBottom_toTopOf="@+id/availableBal"
+        app:layout_constraintBottom_toTopOf="@+id/homeCurrentBal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idAvailableBalance" />
+        app:layout_constraintTop_toBottomOf="@+id/idCurrentBalance" />
 
 </android.support.constraint.ConstraintLayout>

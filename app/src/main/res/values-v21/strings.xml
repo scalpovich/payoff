@@ -12,7 +12,7 @@
     <string name="inputAmount">Enter Amount Here</string>
     <string name="buttonRequest">REQUEST</string>
     <string name="wifiOnOff">Wifi</string>
-    <string name="availableBal">0.0</string>
+    <string name="availableBal">500</string>
     <string name="lbl_availableBalance">Balance</string>
     <string name="delete">Del</string>
     <string name="lbl_amtToSend">Amount:</string>
