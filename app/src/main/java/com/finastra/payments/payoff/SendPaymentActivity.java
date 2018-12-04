@@ -78,21 +78,12 @@ public class SendPaymentActivity extends AppCompatActivity
 
         Intent intent = getIntent();
 
-        owner = intent.getBooleanExtra("Owner?", false);
-        SERVER_IP = intent.getStringExtra("Owner Address");
+        owner = true;
         amountToReceive = findViewById(R.id.idAmountToSend);
-        currentBalance = findViewById(R.id.homeCurrentBal);
+        currentBalance = findViewById(R.id.idCurrentBalance);
         updateBalanceHandler = new Handler();
 
-        Log.i("CURRRENT BAL",currentBalance.getText().toString());
-        Log.i("SERVER_IP",SERVER_IP);
-
-        if (owner) {
-            this.serverThread = new Thread(new ServerThread());
-            this.serverThread.start();
-        } else {
-            new Thread(new ClientThread()).start();
-        }
+        Log.i("CURRRENT BAL",currentBalance.getText()+"");
     }
 
     public void init () {
@@ -235,18 +226,16 @@ public class SendPaymentActivity extends AppCompatActivity
         // When the connection is established, which device is controlled by the group owner. If you own the group we
         // We are sending you to the chat screen, we switch to the chat screen from the home screen.
         // If the other device is a group owner, we will send the address of the group owner to the chat screen.
+        Intent intent = getIntent();
+        SERVER_IP = wifiP2pInfo.groupOwnerAddress.getHostAddress();
         if (wifiP2pInfo.isGroupOwner) {
             Toast.makeText(getApplicationContext(), "Yay I am the owner host!!", Toast.LENGTH_LONG).show();
-            // Intent chatIntent = new Intent(MainActivity.this, ChatActivity.class);
-            //chatIntent.putExtra("Owner?",true); //Grup sahibi benim!
-            //MainActivity.this.startActivity(chatIntent);
+            this.serverThread = new Thread(new ServerThread());
+            this.serverThread.start();
         } else {
             Toast.makeText(getApplicationContext(), "The owner is client: " +
                     wifiP2pInfo.groupOwnerAddress.getHostAddress(), Toast.LENGTH_LONG).show();
-            //Intent chatIntent = new Intent(MainActivity.this, ChatActivity.class);
-            //chatIntent.putExtra("Owner?",false); //Grup sahibi diğer cihaz :(
-            ///chatIntent.putExtra("Owner Address", wifiP2pInfo.groupOwnerAddress.getHostAddress());
-            // MainActivity.this.startActivity(chatIntent);
+            new Thread(new ClientThread()).start();
         }
     }
 
