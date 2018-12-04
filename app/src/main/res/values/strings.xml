@@ -12,7 +12,7 @@
     <string name="buttonRequest">REQUEST</string>
     <string name="wifiOnOff">Wifi</string>
     <string name="lbl_availableBalance">Available Balance</string>
-    <string name="availableBalance">0.0</string>
+    <string name="availableBalance">500</string>
     <string name="delete">Del</string>
     <string name="lbl_amtToSend">Amount:</string>
     <string name="logout">Logout</string>
