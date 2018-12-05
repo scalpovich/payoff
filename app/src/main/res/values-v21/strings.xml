@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PayOff</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,8 +11,8 @@
     <string name="inputAmount">Enter Amount Here</string>
     <string name="buttonRequest">REQUEST</string>
     <string name="wifiOnOff">Wifi</string>
-    <string name="availableBal">500</string>
-    <string name="lbl_availableBalance">Balance</string>
+    <string name="lbl_availableBalance">Offline Balance</string>
+    <string name="availableBalance">500</string>
     <string name="delete">Del</string>
     <string name="lbl_amtToSend">Amount:</string>
     <string name="logout">Logout</string>
@@ -32,12 +31,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="navBankAccount">My Bank Accounts</string>
-    <string name="loginAccount">My Account</string>
-    <string name="lblFxChange">FX Exchange Rate</string>
     <string name="defaultValueForInputAmount">0.0</string>
     <string name="defaultLogin">user1@gmail.com</string>
-    <string name="transactionRef">Transacation Reference:</string>
     <string-array name="currency_array">
         <item>PHP</item>
         <item>EUR</item>
@@ -49,4 +44,18 @@
         <item>CAD</item>
         <item>HKG</item>
     </string-array>
+    <string name="title_activity_transaction">TransactionActivity</string>
+    <string name="transactionRef">Transacation Reference:</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <!-- Strings related to accounts -->
+    <string name="accountNumber">Account Number</string>
+    <string name="onlineBalance">Balance</string>
+    <!-- Strings related to drawer navigation -->
+    <string name="navBankAccount">Bank Accounts</string>
+    <string name="loginAccount">My Account</string>
+    <string name="lblFxChange">FX Exchange Rate</string>
+    <string name="navHome">Home</string>
+    <string name="btnLoad">LOAD</string>
+    <string name="title_activity_offline_balance_transfer">Offline Transfer</string>
+    <string name="transfer">TRANSFER</string>
 </resources>

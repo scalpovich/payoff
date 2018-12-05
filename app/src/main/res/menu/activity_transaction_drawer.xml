@@ -5,13 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/navHome"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/navHome" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/navBankAccount"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/navBankAccount" />
+        <item
+            android:id="@+id/navFxChange"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="@string/lblFxChange" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
@@ -22,16 +26,21 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/navTitleOthers">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/navLoginAccount"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/loginAccount"/>
+
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/navSupport"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/support" />
+            <item
+                android:id="@+id/navLogut"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

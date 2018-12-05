@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.finastra.payments.payoff.AccountActivity"
+    tools:showIn="@layout/app_bar_account">
+
+    <TextView
+        android:id="@+id/onlineBalance"
+        android:layout_width="302dp"
+        android:layout_height="93dp"
+        android:gravity="center"
+        android:text="8888888"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnOfflineLoad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblOnlineBalance" />
+
+    <TextView
+        android:id="@+id/accountNumber"
+        android:layout_width="311dp"
+        android:layout_height="65dp"
+        android:gravity="center"
+        android:text="000001238888"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/lblOnlineBalance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblAccountNumber" />
+
+    <TextView
+        android:id="@+id/lblAccountNumber"
+        android:layout_width="326dp"
+        android:layout_height="61dp"
+        android:gravity="center"
+        android:text="@string/accountNumber"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/accountNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblOnlineBalance"
+        android:layout_width="302dp"
+        android:layout_height="68dp"
+        android:gravity="center"
+        android:text="@string/onlineBalance"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/onlineBalance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumber" />
+
+    <Button
+        android:id="@+id/btnOfflineLoad"
+        android:layout_width="166dp"
+        android:layout_height="65dp"
+        android:onClick="onLoadOfflineBalance"
+        android:text="@string/btnLoad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onlineBalance" />
+</android.support.constraint.ConstraintLayout>

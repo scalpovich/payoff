@@ -84,6 +84,7 @@ public class SendPaymentActivity extends AppCompatActivity
         sendButton = parentLinearLayout.findViewById(R.id.btnSendAmount);
         amountToReceive = findViewById(R.id.idAmountToSend);
         currentBalance = findViewById(R.id.idCurrentBalance);
+        currentBalance.setText(MainActivity.offlineBalanceStr);
         amountToSend = findViewById(R.id.idAmountToSend);
         availableBalance = findViewById(R.id.idCurrentBalance);
     }
