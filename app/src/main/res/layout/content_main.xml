@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeCurrentBal" />
+        app:layout_constraintTop_toBottomOf="@+id/homeOfflineBalance" />
 
     <TextView
         android:id="@+id/idCurrentBalance"
@@ -49,13 +49,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/homeCurrentBal"
+        android:id="@+id/homeOfflineBalance"
         android:layout_width="336dp"
         android:layout_height="148dp"
-        android:text="@string/availableBal"
+        android:text="@string/availableBalance"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="125sp"
+        android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@+id/id_btnSend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
         android:id="@+id/spr_currencies"
         android:layout_width="243dp"
         android:layout_height="41dp"
-        app:layout_constraintBottom_toTopOf="@+id/homeCurrentBal"
+        app:layout_constraintBottom_toTopOf="@+id/homeOfflineBalance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

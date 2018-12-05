@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.finastra.payments.payoff.OfflineBalanceTransferActivity"
+    tools:showIn="@layout/activity_load_ewallet">
+
+    <TextView
+        android:id="@+id/lblOfflineBalanceTransferAmount"
+        android:layout_width="318dp"
+        android:layout_height="109dp"
+        android:gravity="center"
+        android:text="AMOUNT"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/amountToOfflineBalanceTransfer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/amountToOfflineBalanceTransfer"
+        android:layout_width="319dp"
+        android:layout_height="90dp"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:text="@string/defaultValueForInputAmount"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="normal|bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnOfflineTransfer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblOfflineBalanceTransferAmount"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/btnOfflineTransfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onBalanceOfflineTransfer"
+        android:text="@string/transfer"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amountToOfflineBalanceTransfer" />
+
+</android.support.constraint.ConstraintLayout>
