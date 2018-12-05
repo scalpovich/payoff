@@ -37,6 +37,7 @@
     <string name="lblFxChange">FX Exchange Rate</string>
     <string name="defaultValueForInputAmount">0.0</string>
     <string name="defaultLogin">user1@gmail.com</string>
+    <string name="transactionRef">Transacation Reference:</string>
     <string-array name="currency_array">
         <item>PHP</item>
         <item>EUR</item>

@@ -40,10 +40,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.finastra.payments.payoff.MainActivity" />
         </activity>
-        <activity android:name=".SendPaymentActivity"
-                  android:parentActivityName=".MainActivity">
-
-        </activity>
+        <activity
+            android:name=".SendPaymentActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".TransactionActivity"
+            android:label="@string/title_activity_transaction"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

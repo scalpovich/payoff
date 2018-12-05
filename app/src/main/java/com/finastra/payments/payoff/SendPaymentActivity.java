@@ -5,34 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
+import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finastra.payments.wifidirect.ClientServerService;
 import com.finastra.payments.wifidirect.WiFiDirectBroadcastReceiver;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,15 +42,16 @@ public class SendPaymentActivity extends AppCompatActivity
     private LinearLayout parentLinearLayout;
     TextView amountToReceive;
     TextView currentBalance;
-
+    TextView amountToSend;
+    TextView availableBalance;
+    Button sendButton;
 
     //Server instance variables
-    private ServerSocket serverSocket;
-    Handler updateBalanceHandler;
     Thread serverThread = null;
     public static final int SERVERPORT = 6000;
     private static String SERVER_IP;
-    private Socket socket;
+    Handler updateBalanceHandler;
+    SendReceiveAsyncTask sendReceiveAsyncTask;
 
     //Instance variables
     private boolean owner;
@@ -68,6 +68,7 @@ public class SendPaymentActivity extends AppCompatActivity
     WifiP2pDevice[] deviceArray;
 
 
+    private ServerSocket serverSocket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,59 +76,16 @@ public class SendPaymentActivity extends AppCompatActivity
         setContentView(R.layout.activity_send);
         init();
         initWifiDirectComponents();
-
-        Intent intent = getIntent();
-
-        owner = true;
-        amountToReceive = findViewById(R.id.idAmountToSend);
-        currentBalance = findViewById(R.id.idCurrentBalance);
         updateBalanceHandler = new Handler();
-
-        Log.i("CURRRENT BAL",currentBalance.getText()+"");
     }
 
     public void init () {
         parentLinearLayout = findViewById(R.id.discoveredPeers);
-    }
-
-
-    public void onSendPayment(View v) {
-        TextView amountToSend = findViewById(R.id.idAmountToSend);
-        TextView availableBalance = findViewById(R.id.idCurrentBalance);
-        String amountToSendStr = amountToSend.getText() + "";
-        String newBalanceString = "";
-        if (!amountToSendStr.equals("")) {
-            String eWalletAmountStr = availableBalance.getText() + "";
-            double oldValue = Double.parseDouble(eWalletAmountStr);
-            double subtractedValue = Double.parseDouble(amountToSendStr);
-            if (subtractedValue > oldValue) {
-                Context context = getApplicationContext();
-                CharSequence text = "Amount to send is greater than the balance";
-                int duration = Toast.LENGTH_SHORT;
-                Toast.makeText(context, text, duration).show();
-            } else {
-                double newBalance = oldValue - subtractedValue;
-                newBalanceString = newBalance + "";
-                availableBalance.setText(newBalanceString);
-            }
-            try {
-                PrintWriter out = new PrintWriter(new BufferedWriter(
-                        new OutputStreamWriter(socket.getOutputStream()
-                        )), true);
-                out.println(newBalanceString);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            Context context = getApplicationContext();
-            CharSequence text = "Invalid amount";
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(context, text, duration).show();
-        }
+        sendButton = parentLinearLayout.findViewById(R.id.btnSendAmount);
+        amountToReceive = findViewById(R.id.idAmountToSend);
+        currentBalance = findViewById(R.id.idCurrentBalance);
+        amountToSend = findViewById(R.id.idAmountToSend);
+        availableBalance = findViewById(R.id.idCurrentBalance);
     }
 
 
@@ -195,6 +153,32 @@ public class SendPaymentActivity extends AppCompatActivity
         unregisterReceiver(broadcastReceiver);
     }
 
+    public void onSendPayment(View v){
+        String newBalanceString = "";
+        String amountToSendStr = amountToSend.getText() + "";
+        if (!amountToSendStr.equals("")) {
+            String eWalletAmountStr = availableBalance.getText() + "";
+            double oldValue = Double.parseDouble(eWalletAmountStr);
+            double subtractedValue = Double.parseDouble(amountToSendStr);
+            if (subtractedValue > oldValue) {
+                Context context = getApplicationContext();
+                CharSequence text = "Amount to send is greater than the balance";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, text, duration).show();
+            } else {
+                double newBalance = oldValue - subtractedValue;
+                newBalanceString = newBalance + "";
+            }
+        } else {
+            Context context = getApplicationContext();
+            CharSequence text = "Invalid amount";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, text, duration).show();
+        }
+        sendReceiveAsyncTask.writeBalance(newBalanceString.getBytes());
+/*        Intent intent = new Intent(SendPaymentActivity.this, LoginActivity.class);
+        startActivity(intent);*/
+    }
 
     //The information device selected from the list of found devices we have received from existing devicelist'
     //and the configuration information of this device.
@@ -204,12 +188,12 @@ public class SendPaymentActivity extends AppCompatActivity
         final WifiP2pDevice deviceToConnect = peers.get(position - 1);
         WifiP2pConfig config = new WifiP2pConfig();
         config.deviceAddress = deviceToConnect.deviceAddress;
-        // config.groupOwnerIntent = 15;
+        config.wps.setup = WpsInfo.PBC;
         wifiP2pManager.connect(channel, config, new WifiP2pManager.ActionListener() {
             // If the connection is successful, we switch to chat.
             @Override
             public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "Successfully connected to " + deviceToConnect.deviceName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Connected to " + deviceToConnect.deviceName, Toast.LENGTH_SHORT).show();
             }
 
             //If the connection cannot be established, the error code is printed here.
@@ -229,86 +213,79 @@ public class SendPaymentActivity extends AppCompatActivity
         Intent intent = getIntent();
         SERVER_IP = wifiP2pInfo.groupOwnerAddress.getHostAddress();
         if (wifiP2pInfo.isGroupOwner) {
-            Toast.makeText(getApplicationContext(), "Yay I am the owner host!!", Toast.LENGTH_LONG).show();
-            this.serverThread = new Thread(new ServerThread());
-            this.serverThread.start();
+            Toast.makeText(getApplicationContext(), "I AM THE SERVER!", Toast.LENGTH_LONG).show();
+            new ServerAsyncTask().execute();
         } else {
-            Toast.makeText(getApplicationContext(), "The owner is client: " +
-                    wifiP2pInfo.groupOwnerAddress.getHostAddress(), Toast.LENGTH_LONG).show();
-            new Thread(new ClientThread()).start();
+            Toast.makeText(getApplicationContext(), "I AM THE CLIENT" + wifiP2pInfo.groupOwnerAddress.getHostAddress(), Toast.LENGTH_LONG).show();
+            Intent serviceIntent = new Intent(SendPaymentActivity.this,ClientServerService.class);
+            serviceIntent.putExtra(ClientServerService.EXTRAS_GROUP_OWNER_ADDRESS, wifiP2pInfo.groupOwnerAddress.getHostAddress());
+            serviceIntent.putExtra(ClientServerService.EXTRAS_GROUP_OWNER_PORT, SERVERPORT);
+            SendPaymentActivity.this.startService(serviceIntent);
         }
     }
 
-    class ServerThread implements Runnable {
-        @Override
-        public void run() {
-            Socket socket = null;
-            try {
-                serverSocket = new ServerSocket(SERVERPORT);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    socket = serverSocket.accept();
-                    CommunicationThread communicationThread = new CommunicationThread(socket);
-                    new Thread(communicationThread).start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
-    class CommunicationThread implements Runnable {
-        private Socket clientSocket;
-        private BufferedReader input;
+    public class SendReceiveAsyncTask extends AsyncTask<String,String,Void> {
+        private Socket socket;
+        private BufferedReader bufferedReaderInput;
+        private OutputStream outputStream;
 
-        public CommunicationThread(Socket clientSocket) {
-            this.clientSocket = clientSocket;
+        public SendReceiveAsyncTask(Socket socket) {
+            this.socket = socket;
             try {
-                this.input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+                this.outputStream = this.socket.getOutputStream();
+                this.bufferedReaderInput = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         @Override
-        public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    String read = input.readLine();
-                    updateBalanceHandler.post(new UpdateUIThread(read));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        protected Void doInBackground(String... params) {
+            try {
+                String read = bufferedReaderInput.readLine();
+                new UpdateUIThreadAsyncTask(read).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public void writeBalance(byte[] bytes) {
+            try {
+                outputStream.write(bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    class UpdateUIThread implements Runnable {
+    public class UpdateUIThreadAsyncTask extends AsyncTask<String,String,String> {
         private String newBalance;
 
-        public UpdateUIThread(String newBalance) {
+        public UpdateUIThreadAsyncTask(String newBalance){
             this.newBalance = newBalance;
         }
 
         @Override
-        public void run() {
+        protected  String doInBackground(String... params){
             currentBalance.setText(newBalance);
+            return newBalance;
         }
     }
 
-    class ClientThread implements Runnable {
+    public class ServerAsyncTask extends AsyncTask<String,String,String> {
         @Override
-        public void run() {
+        protected String doInBackground(String... params) {
             try {
-                InetAddress serverAddress = InetAddress.getByName(SERVER_IP);
-                socket = new Socket(serverAddress, SERVERPORT);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
+                ServerSocket serverSocket = new ServerSocket(SERVERPORT);
+                Socket socket = serverSocket.accept();
+                sendReceiveAsyncTask = new SendReceiveAsyncTask(socket);
+                sendReceiveAsyncTask.execute();
+                return "";
             } catch (IOException e) {
                 e.printStackTrace();
+                return "";
             }
         }
     }
