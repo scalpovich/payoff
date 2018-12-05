@@ -47,4 +47,6 @@
         <item>CAD</item>
         <item>HKG</item>
     </string-array>
+    <string name="title_activity_transaction">TransactionActivity</string>
+    <string name="transactionRef">Transacation Reference:</string>
 </resources>

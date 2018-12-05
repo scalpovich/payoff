@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idTransactionLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.finastra.payments.payoff.TransactionActivity"
+    tools:showIn="@layout/app_bar_transaction">
+
+    <TextView
+        android:id="@+id/txReference"
+        android:layout_width="250dp"
+        android:layout_height="102dp"
+        android:gravity="center"
+        android:text="XXXX"
+        android:textSize="80sp"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="235dp" />
+
+    <TextView
+        android:id="@+id/lblTxReference"
+        android:layout_width="250dp"
+        android:layout_height="102dp"
+        android:gravity="center"
+        android:text="@string/transactionRef"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="72dp" />
+</android.support.constraint.ConstraintLayout>
