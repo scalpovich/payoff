@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent (MainActivity.this,AccountActivity.class);
             startActivity(intent);
         } else if (id == R.id.navFxChange) {
-
+            Intent intent = new Intent(MainActivity.this,UpdateFXActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.navSupport) {
