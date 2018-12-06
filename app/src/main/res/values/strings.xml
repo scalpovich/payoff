@@ -9,10 +9,10 @@
     <string name="buttonOnWifi">WiFiOn</string>
     <string name="buttonSend">SEND</string>
     <string name="inputAmount">Enter Amount Here</string>
-    <string name="buttonRequest">REQUEST</string>
+    <string name="buttonRequest">RECEIVE</string>
     <string name="wifiOnOff">Wifi</string>
     <string name="lbl_availableBalance">Offline Balance</string>
-    <string name="availableBalance">500</string>
+    <string name="defaultBalance">888888</string>
     <string name="delete">Del</string>
     <string name="lbl_amtToSend">Amount:</string>
     <string name="logout">Logout</string>
@@ -60,4 +60,5 @@
     <string name="transfer">TRANSFER</string>
     <string name="title_activity_connect">ConnectActivity</string>
     <string name="title_activity_receive_payment">ReceivePaymentActivity</string>
+    <string name="buttonDiscover">DISCOVER</string>
 </resources>

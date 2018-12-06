@@ -11,6 +11,8 @@
         android:layout_weight="5"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="onConnectToPeer" />
+        android:onClick="onConnectToPeer"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
 </LinearLayout>

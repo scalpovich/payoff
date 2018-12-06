@@ -34,14 +34,10 @@ public class ConnectToPeersActivity extends AppCompatActivity
     //Android components
     private LinearLayout parentLinearLayout;
     private static final String LOG_INFO = "ConnectToPeersActivity";
-    TextView amountToReceive;
-    TextView currentBalance;
+
     TextView amountToSend;
     TextView availableBalance;
-    Button sendButton;
 
-    //Instance variables
-    private boolean owner;
 
     //WifiDirect variables
     WifiManager wifiManager;
@@ -61,7 +57,6 @@ public class ConnectToPeersActivity extends AppCompatActivity
         setContentView(R.layout.activity_connect_to_peers);
         init();
         initWifiDirectComponents();
-
     }
 
     public void init () {
@@ -101,7 +96,7 @@ public class ConnectToPeersActivity extends AppCompatActivity
             peers.addAll(peerlist.getDeviceList());
             deviceNameArray = new String[peerlist.getDeviceList().size()];
             deviceArray = new WifiP2pDevice[peerlist.getDeviceList().size()];
-            Log.i(LOG_INFO, "Devices name: "+String.valueOf(peerlist.getDeviceList().size()));
+            Log.i(LOG_INFO, "Peers available: "+String.valueOf(peerlist.getDeviceList().size()));
             int index = 0;
             for (WifiP2pDevice device : peerlist.getDeviceList()) {
                 deviceNameArray[index] = device.deviceName;
@@ -139,7 +134,6 @@ public class ConnectToPeersActivity extends AppCompatActivity
     //and the configuration information of this device.
     public void onConnectToPeer(View v) {
         Integer position = (Integer) v.getTag();
-        Log.i("Item Selected", position + "");
         final WifiP2pDevice deviceToConnect = peers.get(position - 1);
         WifiP2pConfig config = new WifiP2pConfig();
         config.deviceAddress = deviceToConnect.deviceAddress;
@@ -166,8 +160,7 @@ public class ConnectToPeersActivity extends AppCompatActivity
         // We are sending you to the chat screen, we switch to the chat screen from the home screen.
         // If the other device is a group owner, we will send the address of the group owner to the chat screen.
         if (wifiP2pInfo.isGroupOwner) {
-            Toast.makeText(getApplicationContext(), "I AM THE SERVER!", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, SendPaymentActivity.class);
+            Intent intent = new Intent(this, ReceivePaymentActivity.class);
             intent.putExtra("Owner?",true); //Grup sahibi benim!
             ConnectToPeersActivity.this.startActivity(intent);
         } else {
