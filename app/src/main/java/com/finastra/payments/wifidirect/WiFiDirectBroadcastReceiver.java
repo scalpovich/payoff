@@ -13,23 +13,23 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
-import com.finastra.payments.payoff.SendPaymentActivity;
+import com.finastra.payments.payoff.ConnectToPeersActivity;
 
 public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
     private WifiP2pManager wifiP2pManager;
     private Channel channel;
-    private SendPaymentActivity sendPaymentActivity;
+    private ConnectToPeersActivity connectToPeersActivity;
     PeerListListener myPeerListListener;
     private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1001;
 
 
     public WiFiDirectBroadcastReceiver(WifiP2pManager wifiP2pManager, WifiP2pManager.Channel channel,
-                                       SendPaymentActivity activity) {
+                                       ConnectToPeersActivity activity) {
         super();
         this.wifiP2pManager = wifiP2pManager;
         this.channel = channel;
-        this.sendPaymentActivity = activity;
+        this.connectToPeersActivity = activity;
     }
 
     @Override
@@ -47,11 +47,11 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             // Call WifiP2pManager.requestPeers() to get a list of current peers
             Toast.makeText(context,"Requesting peers",Toast.LENGTH_SHORT).show();
             if (wifiP2pManager != null) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(sendPaymentActivity,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                   ActivityCompat.requestPermissions(sendPaymentActivity,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(connectToPeersActivity,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                   ActivityCompat.requestPermissions(connectToPeersActivity,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
                     //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
                 } else{
-                    wifiP2pManager.requestPeers(channel, sendPaymentActivity);
+                    wifiP2pManager.requestPeers(channel, connectToPeersActivity);
                     //do something, permission was previously granted; or legacy device
                 }
             }
@@ -64,7 +64,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (networkInfo.isConnected()) {
                 // we are connected with the other device, request connection
                 // info to find group owner IP
-                wifiP2pManager.requestConnectionInfo(channel, sendPaymentActivity);
+                wifiP2pManager.requestConnectionInfo(channel, connectToPeersActivity);
             } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
                 // Respond to this device's wifi state changing
                 Toast.makeText(context,"Disconnected",Toast.LENGTH_SHORT).show();
