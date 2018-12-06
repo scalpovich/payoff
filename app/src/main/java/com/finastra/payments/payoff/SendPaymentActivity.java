@@ -114,13 +114,6 @@ public class SendPaymentActivity extends AppCompatActivity {
             MainActivity.offlineBalanceStr = newBalance;
             return newBalance;
         }
-
-        @Override
-        protected  void onPreExecute() {
-            super.onPreExecute();
-            TextView progressTV = findViewById(R.id.progressTV);
-            progressTV.setText("Setting the balance socket");
-        }
     }
 
     public class ServerAsyncTask extends AsyncTask<String,String,String> {
