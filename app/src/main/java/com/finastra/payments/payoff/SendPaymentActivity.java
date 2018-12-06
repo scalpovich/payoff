@@ -228,12 +228,5 @@ public class SendPaymentActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        @Override
-        protected  void onPreExecute() {
-            super.onPreExecute();
-            TextView progressTV = findViewById(R.id.progressTV);
-            progressTV.setText("Send receive");
-        }
     }
 }
