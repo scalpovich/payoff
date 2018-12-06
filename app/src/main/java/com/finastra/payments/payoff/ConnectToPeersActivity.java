@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -37,7 +38,7 @@ public class ConnectToPeersActivity extends AppCompatActivity
 
     TextView amountToSend;
     TextView availableBalance;
-
+    String btnPressed;
 
     //WifiDirect variables
     WifiManager wifiManager;
@@ -159,11 +160,13 @@ public class ConnectToPeersActivity extends AppCompatActivity
         // When the connection is established, which device is controlled by the group owner. If you own the group we
         // We are sending you to the chat screen, we switch to the chat screen from the home screen.
         // If the other device is a group owner, we will send the address of the group owner to the chat screen.
-        if (wifiP2pInfo.isGroupOwner) {
+        if ("RECEIVE".equals(MainActivity.btnPressed)) {
+            //server
             Intent intent = new Intent(this, ReceivePaymentActivity.class);
             intent.putExtra("Owner?",true); //Grup sahibi benim!
             ConnectToPeersActivity.this.startActivity(intent);
         } else {
+            //client
             Intent intent = new Intent(this, SendPaymentActivity.class);
             intent.putExtra("Owner?",false); //Grup sahibi benim!
             intent.putExtra("Owner Address", wifiP2pInfo.groupOwnerAddress.getHostAddress());

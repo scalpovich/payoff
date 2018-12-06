@@ -11,10 +11,11 @@
     tools:showIn="@layout/app_bar_main">
 
     <Button
-        android:id="@+id/id_btnOnRequest"
+        android:id="@+id/id_btnReceive"
         android:layout_width="150dp"
         android:layout_height="65dp"
         android:onClick="onDiscoverPeers"
+        android:tag="@string/buttonRequest"
         android:text="@string/buttonRequest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +27,11 @@
         android:id="@+id/id_btnSend"
         android:layout_width="153dp"
         android:layout_height="61dp"
+        android:layout_marginTop="5dp"
         android:onClick="onDiscoverPeers"
-        android:text="@string/buttonDiscover"
-        app:layout_constraintBottom_toTopOf="@+id/id_btnOnRequest"
+        android:tag="@string/buttonSend"
+        android:text="@string/buttonSend"
+        app:layout_constraintBottom_toTopOf="@+id/id_btnReceive"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
