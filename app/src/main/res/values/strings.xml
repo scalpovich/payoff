@@ -58,4 +58,6 @@
     <string name="btnLoad">LOAD</string>
     <string name="title_activity_offline_balance_transfer">Offline Transfer</string>
     <string name="transfer">TRANSFER</string>
+    <string name="title_activity_connect">ConnectActivity</string>
+    <string name="title_activity_receive_payment">ReceivePaymentActivity</string>
 </resources>

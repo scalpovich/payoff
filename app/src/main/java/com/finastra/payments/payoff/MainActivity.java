@@ -133,12 +133,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onSend (View v) {
-        Intent intent = new Intent(MainActivity.this, SendPaymentActivity.class);
+        Intent intent = new Intent(MainActivity.this, ConnectToPeersActivity.class);
         startActivity(intent);
     }
 
     public void onRequest (View v) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View sendView = inflater.inflate(R.layout.activity_send, null);
+        View sendView = inflater.inflate(R.layout.activity_connect_to_peers, null);
     }
 }
