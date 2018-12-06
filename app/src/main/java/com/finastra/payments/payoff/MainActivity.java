@@ -37,9 +37,18 @@ public class MainActivity extends AppCompatActivity
     public void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
 
         offlineBalance = findViewById(R.id.homeOfflineBalance);
         offlineBalance.setText(offlineBalanceStr);
+
+        if(intent.hasExtra("amountTransferred")) {
+            double offlineBalanceDbl = Double.parseDouble(offlineBalanceStr);
+            double amountTransferred = Double.parseDouble(intent.getExtras().getString("amountTransferred"));
+            double newOfflineBalance = offlineBalanceDbl+amountTransferred;
+            offlineBalanceStr = newOfflineBalance +"";
+            offlineBalance.setText(offlineBalanceStr);
+        }
 
         //Foreign currencies
         Spinner spinner = findViewById(R.id.spr_currencies);
