@@ -10,6 +10,8 @@ import java.math.BigInteger;
 public class LedgerEntity implements Ledger {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private String sender;
+    private String destination;
     private String transactionType;
     private String transactionDetails;
     private double amount;
@@ -21,6 +23,24 @@ public class LedgerEntity implements Ledger {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    @Override
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     @Override
@@ -54,7 +74,9 @@ public class LedgerEntity implements Ledger {
     }
 
     @Ignore
-    public LedgerEntity(String transactionType, String transactionDetails, double amount) {
+    public LedgerEntity(String sender, String destination, String transactionType, String transactionDetails, double amount) {
+        this.sender = sender;
+        this.destination = destination;
         this.transactionType = transactionType;
         this.transactionDetails = transactionDetails;
         this.amount = amount;
@@ -62,6 +84,8 @@ public class LedgerEntity implements Ledger {
 
     public LedgerEntity(Ledger ledger) {
         this.id = ledger.getId();
+        this.sender = ledger.getSender();
+        this.destination = ledger.getDestination();
         this.transactionType = ledger.getTransactionType();
         this.transactionDetails = ledger.getTransactionDetails();
         this.amount = ledger.getAmount();
