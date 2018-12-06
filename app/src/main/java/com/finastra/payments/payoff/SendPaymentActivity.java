@@ -12,6 +12,7 @@ import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -176,7 +177,11 @@ public class SendPaymentActivity extends AppCompatActivity
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
         }
-        sendReceiveAsyncTask.writeBalance(newBalanceString.getBytes());
+        if(serverSocket != null) {
+            sendReceiveAsyncTask.writeBalance(newBalanceString.getBytes());
+        } else {
+            Log.i("SERVERSOCKET","IS NULL");
+        }
 /*        Intent intent = new Intent(SendPaymentActivity.this, LoginActivity.class);
         startActivity(intent);*/
     }
@@ -215,7 +220,11 @@ public class SendPaymentActivity extends AppCompatActivity
         SERVER_IP = wifiP2pInfo.groupOwnerAddress.getHostAddress();
         if (wifiP2pInfo.isGroupOwner) {
             Toast.makeText(getApplicationContext(), "I AM THE SERVER!", Toast.LENGTH_LONG).show();
-            new ServerAsyncTask().execute();
+            if(Build.VERSION.SDK_INT >= 24) {
+                new ServerAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                new ServerAsyncTask().execute();
+            }
         } else {
             Toast.makeText(getApplicationContext(), "I AM THE CLIENT" + wifiP2pInfo.groupOwnerAddress.getHostAddress(), Toast.LENGTH_LONG).show();
             Intent serviceIntent = new Intent(SendPaymentActivity.this,ClientServerService.class);
@@ -234,6 +243,7 @@ public class SendPaymentActivity extends AppCompatActivity
         public SendReceiveAsyncTask(Socket socket) {
             this.socket = socket;
             try {
+                Log.i("SENDRECEIVE","intializing");
                 this.outputStream = this.socket.getOutputStream();
                 this.bufferedReaderInput = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             } catch (IOException e) {
@@ -244,8 +254,13 @@ public class SendPaymentActivity extends AppCompatActivity
         @Override
         protected Void doInBackground(String... params) {
             try {
+                Log.i("SENDRECEIVE","executing");
                 String read = bufferedReaderInput.readLine();
-                new UpdateUIThreadAsyncTask(read).execute();
+                if(Build.VERSION.SDK_INT >= 24) {
+                    new UpdateUIThreadAsyncTask(read).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    new UpdateUIThreadAsyncTask(read).execute();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -281,8 +296,13 @@ public class SendPaymentActivity extends AppCompatActivity
             try {
                 ServerSocket serverSocket = new ServerSocket(SERVERPORT);
                 Socket socket = serverSocket.accept();
+                Log.i("SOCKET CREATED","socket created");
                 sendReceiveAsyncTask = new SendReceiveAsyncTask(socket);
-                sendReceiveAsyncTask.execute();
+                if(Build.VERSION.SDK_INT >= 24) {
+                   sendReceiveAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    sendReceiveAsyncTask.execute();
+                }
                 return "";
             } catch (IOException e) {
                 e.printStackTrace();
