@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -25,14 +26,11 @@ public class SendPaymentActivity extends AppCompatActivity {
 
     public static final int SERVERPORT = 6000;
     private static final int SOCKET_TIMEOUT = 5000;
-
-    private ServerSocket serverSocket;
-
     TextView amountToSend;
     TextView availableBalance;
     String SERVER_IP;
 
-    SendReceiveAsyncTask sendReceiveAsyncTask;
+    public String amountToSendStr;
 
     boolean owner;
 
@@ -47,23 +45,19 @@ public class SendPaymentActivity extends AppCompatActivity {
 
         owner = intent.getBooleanExtra("Owner?", false);
 
-        if(intent.hasExtra("Owner Address")) {
+        if (intent.hasExtra("Owner Address")) {
             SERVER_IP = intent.getStringExtra("Owner Address");
         }
 
         if (owner) {
-            if(Build.VERSION.SDK_INT >= 24) {
+            if (Build.VERSION.SDK_INT >= 24) {
                 new ServerAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             } else {
                 new ServerAsyncTask().execute();
             }
         } else {
-            if(Build.VERSION.SDK_INT >= 24) {
-                new ClientAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            } else {
-                new ClientAsyncTask().execute();
-
-            }
+            TextView progressTV = findViewById(R.id.progressTV);
+            progressTV.setText("I'M CLIENT");
         }
     }
 
@@ -73,9 +67,9 @@ public class SendPaymentActivity extends AppCompatActivity {
         availableBalance.setText(MainActivity.offlineBalanceStr);
     }
 
-    public void onSendPayment(View v){
+    public void onSendPayment(View v) {
         String newBalanceString = "";
-        String amountToSendStr = amountToSend.getText() + "";
+        amountToSendStr = amountToSend.getText() + "";
         if (!amountToSendStr.equals("")) {
             String eWalletAmountStr = availableBalance.getText() + "";
             double oldValue = Double.parseDouble(eWalletAmountStr);
@@ -95,43 +89,24 @@ public class SendPaymentActivity extends AppCompatActivity {
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
         }
-        if(serverSocket != null) {
-            sendReceiveAsyncTask.writeBalance(newBalanceString.getBytes());
+        if (Build.VERSION.SDK_INT >= 24) {
+            new ClientAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            Log.i("SERVERSOCKET","IS NULL");
+            new ClientAsyncTask().execute();
         }
     }
 
-    public class UpdateUIThreadAsyncTask extends AsyncTask<String,String,String> {
-        private String newBalance;
-
-        public UpdateUIThreadAsyncTask(String newBalance){
-            this.newBalance = newBalance;
-        }
-
-        @Override
-        protected  String doInBackground(String... params){
-            MainActivity.offlineBalanceStr = newBalance;
-            return newBalance;
-        }
-    }
-
-    public class ServerAsyncTask extends AsyncTask<String,String,String> {
+    public class ServerAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            Socket socket = null;
+
             try {
-                serverSocket = new ServerSocket(SERVERPORT);
-                socket = serverSocket.accept();
-                sendReceiveAsyncTask = new SendReceiveAsyncTask(socket);
-                if(Build.VERSION.SDK_INT >= 24) {
-                    Log.i("GREATER THAN VERSION","NOUGAT AND ABOVE");
-                    sendReceiveAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                } else {
-                    Log.i("NOT GREATER","NOUGAT");
-                    sendReceiveAsyncTask.execute();
-                }
-                Log.i("SOCKET CREATED","socket created");
+                ServerSocket serverSocket = new ServerSocket(SERVERPORT);
+                Log.d("ServerAsyncTask: ", "Socket opened");
+                Socket client = serverSocket.accept();
+                Log.d("ServerAsyncTask: ", "connection done");
+                InputStream inputstream = client.getInputStream();
+                Log.d("RECEIVED from CLIENT: ", getStringFromInputStream(inputstream));
                 return "";
             } catch (IOException e) {
                 e.printStackTrace();
@@ -140,86 +115,79 @@ public class SendPaymentActivity extends AppCompatActivity {
         }
 
         @Override
-        protected  void onPreExecute() {
+        protected void onPreExecute() {
             super.onPreExecute();
             TextView progressTV = findViewById(R.id.progressTV);
             progressTV.setText("IM SERVER");
         }
+/*
+@Override
+protected void onPostExecute(String s) {
+super.onPostExecute(s);
+double receiverBalance = Double.parseDouble(MainActivity.offlineBalanceStr);
+double receivedAmount = Double.parseDouble(s);
+double newBalance = receiverBalance + receivedAmount;
+String newBalanceSTr = newBalance + "";
+Log.i("ServerAsyncTask",newBalanceSTr);
+MainActivity.offlineBalanceStr = newBalanceSTr;
+}*/
     }
 
-    public class ClientAsyncTask extends AsyncTask<String,String,String> {
+    private static String getStringFromInputStream(InputStream is) {
+
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+
+            br = new BufferedReader(new InputStreamReader(is));
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return sb.toString();
+
+    }
+
+
+    public class ClientAsyncTask extends AsyncTask<String, String, String> {
+
         @Override
-        protected  String doInBackground (String... params) {
+        protected String doInBackground(String... params) {
             String hostAddress = SERVER_IP;
+
             Socket socket = new Socket();
             int port = SERVERPORT;
             try {
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(hostAddress, port)), SOCKET_TIMEOUT);
                 Log.i("CONNECTED", "Connection successful");
+                OutputStream outputStream = socket.getOutputStream();
+                outputStream.write(amountToSendStr.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                if (socket != null) {
-                    if (socket.isConnected()) {
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
             }
             return null;
         }
 
         @Override
-        protected  void onPreExecute() {
+        protected void onPreExecute() {
             super.onPreExecute();
             TextView progressTV = findViewById(R.id.progressTV);
             progressTV.setText("I'M CLIENT");
-        }
-    }
-
-
-    public class SendReceiveAsyncTask extends AsyncTask<String,String,Void> {
-        private Socket socket;
-        private BufferedReader bufferedReaderInput;
-        private OutputStream outputStream;
-
-        public SendReceiveAsyncTask(Socket socket) {
-            this.socket = socket;
-            try {
-                Log.i("SENDRECEIVE","intializing");
-                this.outputStream = this.socket.getOutputStream();
-                this.bufferedReaderInput = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                Log.i("SENDRECEIVE","executing");
-                String read = bufferedReaderInput.readLine();
-                if(Build.VERSION.SDK_INT >= 24) {
-                    new UpdateUIThreadAsyncTask(read).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                } else {
-                    new UpdateUIThreadAsyncTask(read).execute();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        public void writeBalance(byte[] bytes) {
-            try {
-                outputStream.write(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
