@@ -26,6 +26,8 @@ public class SendPaymentActivity extends AppCompatActivity {
 
     public static final int SERVERPORT = 6000;
     private static final int SOCKET_TIMEOUT = 5000;
+    public static final String LOG_INFO = "SendPaymentActivity";
+
     TextView amountToSend;
     TextView availableBalance;
     String SERVER_IP;
@@ -71,16 +73,16 @@ public class SendPaymentActivity extends AppCompatActivity {
         String newBalanceString = "";
         amountToSendStr = amountToSend.getText() + "";
         if (!amountToSendStr.equals("")) {
-            String eWalletAmountStr = availableBalance.getText() + "";
-            double oldValue = Double.parseDouble(eWalletAmountStr);
-            double subtractedValue = Double.parseDouble(amountToSendStr);
-            if (subtractedValue > oldValue) {
+            String offlineBalanceStr = availableBalance.getText() + "";
+            double offlineBalance = Double.parseDouble(offlineBalanceStr);
+            double amountToSend = Double.parseDouble(amountToSendStr);
+            if (amountToSend > offlineBalance) {
                 Context context = getApplicationContext();
                 CharSequence text = "Amount to send is greater than the balance";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
             } else {
-                double newBalance = oldValue - subtractedValue;
+                double newBalance = offlineBalance - amountToSend;
                 newBalanceString = newBalance + "";
             }
         } else {
@@ -89,6 +91,7 @@ public class SendPaymentActivity extends AppCompatActivity {
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, text, duration).show();
         }
+        MainActivity.offlineBalanceStr = newBalanceString;
         if (Build.VERSION.SDK_INT >= 24) {
             new ClientAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
@@ -97,23 +100,6 @@ public class SendPaymentActivity extends AppCompatActivity {
     }
 
     public class ServerAsyncTask extends AsyncTask<String, String, String> {
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                ServerSocket serverSocket = new ServerSocket(SERVERPORT);
-                Log.d("ServerAsyncTask: ", "Socket opened");
-                Socket client = serverSocket.accept();
-                Log.d("ServerAsyncTask: ", "connection done");
-                InputStream inputstream = client.getInputStream();
-                Log.d("RECEIVED from CLIENT: ", getStringFromInputStream(inputstream));
-                serverSocket.close();
-                return "";
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
 
         @Override
         protected void onPreExecute() {
@@ -121,17 +107,34 @@ public class SendPaymentActivity extends AppCompatActivity {
             TextView progressTV = findViewById(R.id.progressTV);
             progressTV.setText("IM SERVER");
         }
-/*
-@Override
-protected void onPostExecute(String s) {
-super.onPostExecute(s);
-double receiverBalance = Double.parseDouble(MainActivity.offlineBalanceStr);
-double receivedAmount = Double.parseDouble(s);
-double newBalance = receiverBalance + receivedAmount;
-String newBalanceSTr = newBalance + "";
-Log.i("ServerAsyncTask",newBalanceSTr);
-MainActivity.offlineBalanceStr = newBalanceSTr;
-}*/
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                ServerSocket serverSocket = new ServerSocket(SERVERPORT);
+                Log.i(LOG_INFO, "ServerAsyncTask: Socket opened");
+                Socket client = serverSocket.accept();
+                Log.i(LOG_INFO, "ServerAsyncTask: connection done");
+                InputStream inputstream = client.getInputStream();
+                String amountToTransfer = getStringFromInputStream(inputstream);
+                Log.i(LOG_INFO, "RECEIVED FROM CLIENT: " + amountToTransfer);
+                serverSocket.close();
+                return amountToTransfer;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String amountToTransfer) {
+            super.onPostExecute(amountToTransfer);
+            Intent intent = new Intent(SendPaymentActivity.this,MainActivity.class);
+            intent.putExtra("amountTransferred",amountToTransfer);
+            startActivity(intent);
+        }
+
     }
 
     private static String getStringFromInputStream(InputStream is) {
@@ -167,9 +170,15 @@ MainActivity.offlineBalanceStr = newBalanceSTr;
     public class ClientAsyncTask extends AsyncTask<String, String, String> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            TextView progressTV = findViewById(R.id.progressTV);
+            progressTV.setText("I'M CLIENT");
+        }
+
+        @Override
         protected String doInBackground(String... params) {
             String hostAddress = SERVER_IP;
-
             Socket socket = new Socket();
             int port = SERVERPORT;
             try {
@@ -196,10 +205,10 @@ MainActivity.offlineBalanceStr = newBalanceSTr;
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            TextView progressTV = findViewById(R.id.progressTV);
-            progressTV.setText("I'M CLIENT");
+        protected void onPostExecute(String amountToTransfer) {
+            super.onPostExecute(amountToTransfer);
+            Intent intent = new Intent(SendPaymentActivity.this,MainActivity.class);
+            startActivity(intent);
         }
     }
 }
