@@ -47,27 +47,8 @@
             android:name=".TransactionActivity"
             android:label="@string/title_activity_transaction"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AccountActivity"
-            android:label="@string/title_activity_account"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.finastra.payments.payoff.MainActivity" />
-        </activity>
-        <activity
-            android:name=".OfflineBalanceTransferActivity"
-            android:label="@string/title_activity_offline_balance_transfer"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SendPaymentActivity"
-            android:label="@string/title_activity_connect"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ReceivePaymentActivity"
-            android:label="@string/title_activity_receive_payment"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".UpdateFXActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
