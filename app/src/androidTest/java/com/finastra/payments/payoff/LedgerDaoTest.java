@@ -23,10 +23,10 @@ import static org.hamcrest.core.Is.is;
 @RunWith(AndroidJUnit4.class)
 public class LedgerDaoTest {
 
-    static final LedgerEntity CREDIT_TRANSACTION = new LedgerEntity(TransactionType.CREDIT.name(), "Show me the money!!!",
+    static final LedgerEntity CREDIT_TRANSACTION = new LedgerEntity("Tamy", "Rahm",  TransactionType.CREDIT.name(), "Show me the money!!!",
             500d);
 
-    static final LedgerEntity DEBIT_TRANSACTION = new LedgerEntity(TransactionType.DEBIT.name(), "Don't take it away!!!",
+    static final LedgerEntity DEBIT_TRANSACTION = new LedgerEntity("Ron", "Edsel", TransactionType.DEBIT.name(), "Don't take it away!!!",
             200d);
 
     static final List<LedgerEntity> TRANSACTIONS = Arrays.asList(CREDIT_TRANSACTION, DEBIT_TRANSACTION);
