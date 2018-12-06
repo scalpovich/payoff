@@ -107,6 +107,7 @@ public class SendPaymentActivity extends AppCompatActivity {
                 Log.d("ServerAsyncTask: ", "connection done");
                 InputStream inputstream = client.getInputStream();
                 Log.d("RECEIVED from CLIENT: ", getStringFromInputStream(inputstream));
+                serverSocket.close();
                 return "";
             } catch (IOException e) {
                 e.printStackTrace();
@@ -177,8 +178,19 @@ MainActivity.offlineBalanceStr = newBalanceSTr;
                 Log.i("CONNECTED", "Connection successful");
                 OutputStream outputStream = socket.getOutputStream();
                 outputStream.write(amountToSendStr.getBytes());
+                Log.i("SENT TO CLIENT",amountToSendStr);
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if (socket != null) {
+                    if (socket.isConnected()) {
+                        try {
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
             return null;
         }
