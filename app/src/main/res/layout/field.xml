@@ -6,13 +6,16 @@
 
     <TextView
         android:id="@+id/discoveredPeer"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
+        android:background="@drawable/text_shape_list"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="18dp"
+        android:padding="16dp"
+        android:text="hello"
         android:clickable="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:onClick="onConnectToPeer"
-        android:textSize="20sp"
         android:gravity="center"/>
 
 </LinearLayout>
