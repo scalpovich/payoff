@@ -15,7 +15,6 @@
         android:id="@+id/id_btnReceive"
         android:layout_width="150dp"
         android:layout_height="65dp"
-        android:layout_marginTop="40dp"
         android:background="@drawable/round_shape_btn"
         android:onClick="onDiscoverPeers"
         android:tag="@string/buttonRequest"
@@ -23,15 +22,15 @@
         android:textColor="@color/textOnPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/id_btnSend"
-        app:layout_constraintTop_toBottomOf="@id/idAccountName"
-        app:layout_constraintVertical_bias="0.33" />
+        app:layout_constraintTop_toBottomOf="@+id/idAccountName"
+        app:layout_constraintVertical_bias="0.52" />
 
     <Button
         android:id="@+id/id_btnSend"
-        android:layout_width="153dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_shape_btn"
         android:onClick="onDiscoverPeers"
         android:tag="@string/buttonSend"
@@ -41,7 +40,7 @@
         app:layout_constraintEnd_toStartOf="@+id/id_btnReceive"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/idAccountName" />
+        app:layout_constraintTop_toBottomOf="@+id/idAccountName" />
 
     <TextView
         android:id="@+id/idCurrentBalance"
