@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.finastra.payments.payoff.db.PayoffDatabase;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PayoffDatabase.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -148,5 +151,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, ConnectToPeersActivity.class);
         startActivity(intent);
     }
+
 
 }
