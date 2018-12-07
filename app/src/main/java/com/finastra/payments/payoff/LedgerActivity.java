@@ -38,7 +38,7 @@ public class LedgerActivity extends AppCompatActivity {
             String sender = name.getSender();
             String transactionDetails = name.getTransactionDetails();
             String transactionType = name.getTransactionType();
-            ledgerDetails = id + amount +destination+sender+transactionDetails+transactionType;
+            ledgerDetails = "AMT: " + amount +" SENDER: " + sender + " DEST: "+ destination + " TXTYPE: " +transactionType;
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View viewTesting = inflater.inflate(R.layout.field,null);
             TextView textView = viewTesting.findViewById(R.id.discoveredPeer);
