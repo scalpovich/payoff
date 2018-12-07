@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity
     TextView offlineBalance;
     public static String btnPressed;
     HashMap<String,Double> currency_map;
-    private String defaultCurrency="PHP";
+    public static String defaultCurrency="PHP";
+    public static int currencyPosition=0;
     private Double valuePHP=0.0;
 
 
@@ -74,16 +75,16 @@ public class MainActivity extends AppCompatActivity
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
+        spinner.setSelection(currencyPosition);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
+                currencyPosition =  position;
                handleSpinnerSelect(selectedItem);
             } // to close the onItemSelected
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -230,7 +231,9 @@ public class MainActivity extends AppCompatActivity
         if (offlineBalance <= 0.0) {
             return;
         }
-        if(selected.equals(defaultCurrency)) return;
+        if(selected.equals(defaultCurrency)) {
+            return;
+        }
 
         if(selected.equals("PHP")){ //if converting to PHP:
             convertedOfflineBalance =  offlineBalance / currency_map.get(defaultCurrency);
@@ -248,6 +251,5 @@ public class MainActivity extends AppCompatActivity
         offlineBalanceStr = convertedOfflineBalance+"";
         Log.i("CONVERTED",convertedOfflineBalance+"");
         offlineBalanceView.setText(convertedOfflineBalance+"");
-
     }
 }
