@@ -36,6 +36,7 @@
     <string name="defaultValueForInputAmount">0.0</string>
     <string name="defaultLogin">user1@gmail.com</string>
     <string-array name="currency_array">
+        <item>PHP</item>
         <item>BGN</item>
         <item>CAD</item>
         <item>BRL</item>
@@ -46,7 +47,6 @@
         <item>TRY</item>
         <item>RON</item>
         <item>GBP</item>
-        <item>PHP</item>
         <item>HRK</item>
         <item>NOK</item>
         <item>USD</item>
