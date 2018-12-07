@@ -34,15 +34,39 @@
     <string name="defaultValueForInputAmount">0.0</string>
     <string name="defaultLogin">user1@gmail.com</string>
     <string-array name="currency_array">
-        <item>PHP</item>
-        <item>EUR</item>
-        <item>JPN</item>
-        <item>GBP</item>
-        <item>USD</item>
-        <item>AUD</item>
-        <item>CHF</item>
+        <item>BGN</item>
         <item>CAD</item>
-        <item>HKG</item>
+        <item>BRL</item>
+        <item>HUF</item>
+        <item>DKK</item>
+        <item>JPY</item>
+        <item>ILS</item>
+        <item>TRY</item>
+        <item>RON</item>
+        <item>GBP</item>
+        <item>PHP</item>
+        <item>HRK</item>
+        <item>NOK</item>
+        <item>USD</item>
+        <item>MXN</item>
+        <item>AUD</item>
+        <item>IDR</item>
+        <item>KRW</item>
+        <item>HKD</item>
+        <item>EUR</item>
+        <item>ZAR</item>
+        <item>ISK</item>
+        <item>CZK</item>
+        <item>THB</item>
+        <item>MYR</item>
+        <item>NZD</item>
+        <item>PLN</item>
+        <item>SEK</item>
+        <item>RUB</item>
+        <item>CNY</item>
+        <item>SGD</item>
+        <item>CHF</item>
+        <item>INR</item>
     </string-array>
     <string name="title_activity_transaction">TransactionActivity</string>
     <string name="transactionRef">Transacation Reference:</string>

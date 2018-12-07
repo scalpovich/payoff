@@ -148,7 +148,6 @@ public class UpdateFXActivity extends AppCompatActivity {
             rowView.setTag(i);
             // Add the new row before the add field button.
             parentLinearLayout.addView(columnView, parentLinearLayout.getChildCount()-1);
-            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() );
         }
 
     }
