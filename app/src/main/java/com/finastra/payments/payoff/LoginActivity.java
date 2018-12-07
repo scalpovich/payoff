@@ -73,9 +73,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        getWindow().setBackgroundDrawableResource(R.mipmap.login_screen);
         setContentView(R.layout.activity_login);
-//        setupActionBar();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();

@@ -9,48 +9,79 @@
     tools:showIn="@layout/activity_load_ewallet">
 
     <TextView
-        android:id="@+id/lblOfflineBalanceTransferAmount"
-        android:layout_width="318dp"
-        android:layout_height="109dp"
-        android:gravity="center"
-        android:text="AMOUNT"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/amountToOfflineBalanceTransfer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:id="@+id/textViewFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:gravity="left"
+        android:text="From:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/amountToOfflineBalanceTransfer"
-        android:layout_width="319dp"
-        android:layout_height="90dp"
-        android:gravity="center"
-        android:importantForAutofill="no"
-        android:inputType="phone"
-        android:text="@string/defaultValueForInputAmount"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="30sp"
-        android:textStyle="normal|bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/btnOfflineTransfer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+    <TextView
+        android:id="@+id/TextViewAccountDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Insert Account Details here"
+        android:textAlignment="center"
+        android:textColor="@color/regularText"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFrom" />
+
+    <TextView
+        android:id="@+id/TextViewAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:text="Amount:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblOfflineBalanceTransferAmount"
-        tools:targetApi="o" />
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAccountDetails"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAmount">
+
+        <EditText
+            android:id="@+id/amountToOfflineBalanceTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/defaultValueForInputAmount"
+            android:textColor="@color/regularText"
+            android:textSize="20dp"
+            tools:targetApi="o" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btnOfflineTransfer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/round_shape_btn"
+        android:gravity="center"
         android:onClick="onBalanceOfflineTransfer"
-        android:text="@string/transfer"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/load_wallet"
+        android:textColor="@color/textOnPrimaryDark"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountToOfflineBalanceTransfer" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
 
 </android.support.constraint.ConstraintLayout>

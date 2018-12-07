@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,15 +67,11 @@ public class UpdateFXActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_current_exchange);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         parentLinearLayout = findViewById(R.id.currencyList);
-        Button updateButton = (Button)findViewById(R.id.updateButton);
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateFX();
-            }
-        });
+
         new getUpdateExchangeRates().execute();
+
     }
     private void updateFX(){
 
@@ -88,12 +85,16 @@ public class UpdateFXActivity extends AppCompatActivity {
                 continue;
             }
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.field, null);
-            TextView textView = rowView.findViewById(R.id.discoveredPeer);
-            textView.setText(pair.getKey() +"         " + pair.getValue());
-            textView.setTag(i);
+            View rowView = inflater.inflate(R.layout.content_currency, null);
+            View columnView = inflater.inflate(R.layout.content_currency, null);
+            TextView fx = columnView.findViewById(R.id.fx);
+            TextView rate = columnView.findViewById(R.id.rate);
+            fx.setText(pair.getKey() + "");
+            rate.setText(""+pair.getValue());
+            rowView.setTag(i);
             // Add the new row before the add field button.
-            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+            parentLinearLayout.addView(columnView, parentLinearLayout.getChildCount()-1);
+            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() );
         }
 
     }
@@ -230,6 +231,7 @@ public class UpdateFXActivity extends AppCompatActivity {
                     currency_map.put("SGD", SGD);
                     currency_map.put("CHF", CHF);
                     currency_map.put("INR", INR);
+                    updateFX();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

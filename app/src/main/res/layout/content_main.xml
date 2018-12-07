@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
     android:id="@+id/idMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,14 +15,17 @@
         android:id="@+id/id_btnReceive"
         android:layout_width="150dp"
         android:layout_height="65dp"
+        android:layout_marginTop="40dp"
         android:onClick="onDiscoverPeers"
         android:tag="@string/buttonRequest"
         android:text="@string/buttonRequest"
+        android:background="@drawable/round_shape_btn"
+        android:textColor="@color/textOnPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_btnSend" />
+        app:layout_constraintStart_toEndOf="@+id/id_btnSend"
+        app:layout_constraintTop_toBottomOf="@id/idAccountName"
+        app:layout_constraintVertical_bias="0.33" />
 
     <Button
         android:id="@+id/id_btnSend"
@@ -31,47 +35,84 @@
         android:onClick="onDiscoverPeers"
         android:tag="@string/buttonSend"
         android:text="@string/buttonSend"
-        app:layout_constraintBottom_toTopOf="@+id/id_btnReceive"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="@color/textOnPrimaryDark"
+        android:background="@drawable/round_shape_btn"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="454dp"
+        app:layout_constraintTop_toBottomOf="@id/idAccountName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeOfflineBalance" />
+        app:layout_constraintEnd_toStartOf="@id/id_btnOnRequest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <TextView
         android:id="@+id/idCurrentBalance"
-        android:layout_width="243dp"
-        android:layout_height="42dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:text="@string/lbl_availableBalance"
+        android:textColor="@color/textOnPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/homeOfflineBalance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/idAccountName"/>
+
+    <TextView
+        android:id="@+id/idAccountName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Juan Dela Cruz"
+        android:textColor="@color/textOnPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spr_currencies"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/idCurrentBalance" />
 
     <TextView
         android:id="@+id/homeOfflineBalance"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textOnPrimaryDark"
+        android:textSize="125sp"
+        app:layout_constraintBottom_toTopOf="@+id/idCurrentBalance"
         android:layout_width="336dp"
         android:layout_height="148dp"
         android:text="@string/defaultBalance"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="65sp"
-        app:layout_constraintBottom_toTopOf="@+id/id_btnSend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spr_currencies" />
 
+    <TextView
+        android:id="@+id/idCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Currency:"
+        android:layout_margin="32dp"
+        android:textColor="@color/textOnPrimaryDark"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/homeOfflineBalance"
+        app:layout_constraintEnd_toStartOf="@id/spr_currencies"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Spinner
         android:id="@+id/spr_currencies"
-        android:layout_width="243dp"
-        android:layout_height="41dp"
-        app:layout_constraintBottom_toTopOf="@+id/homeOfflineBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="32dp"
+        android:textColor="@color/textOnPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@id/homeOfflineBalance"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idCurrentBalance" />
+        app:layout_constraintStart_toEndOf="@id/idCurrency"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </android.support.constraint.ConstraintLayout>
