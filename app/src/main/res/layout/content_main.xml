@@ -12,11 +12,12 @@
     tools:showIn="@layout/app_bar_main">
 
     <Button
-        android:id="@+id/id_btnOnRequest"
+        android:id="@+id/id_btnReceive"
         android:layout_width="150dp"
         android:layout_height="65dp"
         android:layout_marginTop="40dp"
-        android:onClick="onSend"
+        android:onClick="onDiscoverPeers"
+        android:tag="@string/buttonRequest"
         android:text="@string/buttonRequest"
         android:background="@drawable/round_shape_btn"
         android:textColor="@color/textOnPrimaryDark"
@@ -30,7 +31,9 @@
         android:id="@+id/id_btnSend"
         android:layout_width="153dp"
         android:layout_height="61dp"
-        android:onClick="onSend"
+        android:layout_marginTop="5dp"
+        android:onClick="onDiscoverPeers"
+        android:tag="@string/buttonSend"
         android:text="@string/buttonSend"
         android:textColor="@color/textOnPrimaryDark"
         android:background="@drawable/round_shape_btn"
@@ -72,12 +75,16 @@
 
     <TextView
         android:id="@+id/homeOfflineBalance"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/availableBalance"
         android:textColor="@color/textOnPrimaryDark"
         android:textSize="125sp"
         app:layout_constraintBottom_toTopOf="@+id/idCurrentBalance"
+        android:layout_width="336dp"
+        android:layout_height="148dp"
+        android:text="@string/defaultBalance"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spr_currencies" />

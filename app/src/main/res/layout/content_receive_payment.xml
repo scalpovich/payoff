@@ -10,11 +10,14 @@
 
     <TextView
         android:id="@+id/lblReceivePayment"
-        android:layout_width="225dp"
-        android:layout_height="151dp"
+        android:layout_width="252dp"
+        android:layout_height="156dp"
         android:gravity="center"
-        android:text="Received Payment!"
+        android:text="Receiving payment..."
         android:textSize="50sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="95dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

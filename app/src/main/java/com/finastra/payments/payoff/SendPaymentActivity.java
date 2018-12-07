@@ -52,17 +52,6 @@ public class SendPaymentActivity extends AppCompatActivity {
         if (intent.hasExtra("Owner Address")) {
             SERVER_IP = intent.getStringExtra("Owner Address");
         }
-
-        if (owner) {
-            if (Build.VERSION.SDK_INT >= 24) {
-                new ServerAsyncTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            } else {
-                new ServerAsyncTask().execute();
-            }
-        } else {
-            TextView progressTV = findViewById(R.id.progressTV);
-            progressTV.setText("I'M CLIENT");
-        }
     }
 
     public void init() {
@@ -112,7 +101,6 @@ public class SendPaymentActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-
             try {
                 ServerSocket serverSocket = new ServerSocket(SERVERPORT);
                 Log.i(LOG_INFO, "ServerAsyncTask: Socket opened");
@@ -136,7 +124,6 @@ public class SendPaymentActivity extends AppCompatActivity {
             intent.putExtra("amountTransferred",amountToTransfer);
             startActivity(intent);
         }
-
     }
 
     private static String getStringFromInputStream(InputStream is) {

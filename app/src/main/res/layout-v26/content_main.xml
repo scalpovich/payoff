@@ -11,12 +11,13 @@
     tools:showIn="@layout/app_bar_main">
 
     <Button
-        android:id="@+id/id_btnOnRequest"
+        android:id="@+id/id_btnReceive"
         android:layout_width="150dp"
         android:layout_height="65dp"
         android:layout_marginBottom="56dp"
         android:background="@drawable/round_shape_btn"
-        android:onClick="onSend"
+        android:onClick="onDiscoverPeers"
+        android:tag="@string/buttonRequest"
         android:text="@string/buttonRequest"
         android:textColor="@color/textOnPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,12 +30,20 @@
         android:layout_height="61dp"
         android:layout_marginBottom="56dp"
         android:background="@drawable/round_shape_btn"
-        android:onClick="onSend"
         android:text="@string/buttonSend"
         android:textColor="@color/textOnPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/id_btnOnRequest"
         app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="5dp"
+        android:onClick="onDiscoverPeers"
+        android:tag="@string/buttonSend"
+        android:text="@string/buttonSend"
+        app:layout_constraintBottom_toTopOf="@+id/id_btnReceive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeOfflineBalance" />
 
     <TextView
         android:id="@+id/idCurrentBalance"
@@ -68,10 +77,14 @@
         android:id="@+id/homeOfflineBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/availableBalance"
         android:textColor="@color/textOnPrimaryDark"
         android:textSize="125sp"
-        app:layout_constraintBottom_toTopOf="@+id/idCurrentBalance"
+        android:layout_width="336dp"
+        android:layout_height="148dp"
+        android:text="@string/defaultBalance"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/id_btnSend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spr_currencies" />

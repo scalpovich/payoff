@@ -16,6 +16,8 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:onClick="onConnectToPeer" />
+        android:onClick="onConnectToPeer"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
 </LinearLayout>

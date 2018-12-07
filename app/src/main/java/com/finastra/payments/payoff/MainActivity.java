@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     WifiManager wifiManager;
     public static String offlineBalanceStr="0.0";
     TextView offlineBalance;
+    public static String btnPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,17 +142,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onDelete(View v) {
-        //parentLinearLayout.removeView((View) v.getParent());
-    }
 
-    public void onSend (View v) {
+    public void onDiscoverPeers(View v) {
+        btnPressed = v.getTag() +"";
         Intent intent = new Intent(MainActivity.this, ConnectToPeersActivity.class);
         startActivity(intent);
     }
 
-    public void onRequest (View v) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View sendView = inflater.inflate(R.layout.activity_connect_to_peers, null);
-    }
 }
