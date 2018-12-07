@@ -14,6 +14,10 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finastra.payments.payoff.db.LedgerEntity;
+import com.finastra.payments.payoff.db.PayoffDatabase;
+import com.finastra.payments.payoff.db.TransactionType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +26,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 
 public class ReceivePaymentActivity extends AppCompatActivity {
@@ -61,6 +66,7 @@ public class ReceivePaymentActivity extends AppCompatActivity {
                 String amountToTransfer = getStringFromInputStream(inputstream);
                 Log.i(LOG_INFO, "RECEIVED FROM CLIENT: " + amountToTransfer);
                 serverSocket.close();
+                PayoffDatabase.getInstance().ledgerDao().insertAll(Arrays.asList(new LedgerEntity("Rahm","Ron", TransactionType.CREDIT.name(), "Receiving money", Double.parseDouble(amountToTransfer))));
                 return amountToTransfer;
             } catch (IOException e) {
                 e.printStackTrace();

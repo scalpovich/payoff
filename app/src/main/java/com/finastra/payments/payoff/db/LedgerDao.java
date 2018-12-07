@@ -11,12 +11,12 @@ import java.util.List;
 @Dao
 public interface LedgerDao {
     @Query("SELECT * FROM ledger")
-    LiveData<List<LedgerEntity>> loadAllLedger();
+    List<LedgerEntity> loadAllLedger();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<LedgerEntity> ledgers);
 
     @Query("select * from ledger where transactionType = :transactionType")
-    LiveData<List<LedgerEntity>> loadLedgerByType(String transactionType);
+    List<LedgerEntity> loadLedgerByType(String transactionType);
 
 }
