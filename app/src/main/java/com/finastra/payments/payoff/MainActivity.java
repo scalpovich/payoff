@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -127,11 +126,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.navFxChange) {
             Intent intent = new Intent(MainActivity.this,UpdateFXActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.navTransactionHistory) {
             Intent intent = new Intent(MainActivity.this, LedgerActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.navSupport) {
 
         } else if (id == R.id.navLogut) {
@@ -140,7 +137,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
