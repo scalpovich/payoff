@@ -26,7 +26,7 @@ import java.net.Socket;
 public class SendPaymentActivity extends AppCompatActivity {
 
     public static final int SERVERPORT = 6000;
-    private static final int SOCKET_TIMEOUT = 5000;
+    private static final int SOCKET_TIMEOUT = 15000;
     public static final String LOG_INFO = "SendPaymentActivity";
 
     TextView amountToSend;
@@ -89,72 +89,6 @@ public class SendPaymentActivity extends AppCompatActivity {
             new ClientAsyncTask().execute();
         }
     }
-
-    public class ServerAsyncTask extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            TextView progressTV = findViewById(R.id.progressTV);
-            progressTV.setText("IM SERVER");
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                ServerSocket serverSocket = new ServerSocket(SERVERPORT);
-                Log.i(LOG_INFO, "ServerAsyncTask: Socket opened");
-                Socket client = serverSocket.accept();
-                Log.i(LOG_INFO, "ServerAsyncTask: connection done");
-                InputStream inputstream = client.getInputStream();
-                String amountToTransfer = getStringFromInputStream(inputstream);
-                Log.i(LOG_INFO, "RECEIVED FROM CLIENT: " + amountToTransfer);
-                serverSocket.close();
-                return amountToTransfer;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String amountToTransfer) {
-            super.onPostExecute(amountToTransfer);
-            Intent intent = new Intent(SendPaymentActivity.this,MainActivity.class);
-            intent.putExtra("amountTransferred",amountToTransfer);
-            startActivity(intent);
-        }
-    }
-
-    private static String getStringFromInputStream(InputStream is) {
-
-        BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-
-        String line;
-        try {
-
-            br = new BufferedReader(new InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return sb.toString();
-
-    }
-
 
     public class ClientAsyncTask extends AsyncTask<String, String, String> {
 
