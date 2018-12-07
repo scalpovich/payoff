@@ -41,7 +41,6 @@
         tools:layout_editor_absoluteY="454dp"
         app:layout_constraintTop_toBottomOf="@id/idAccountName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/id_btnOnRequest"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
@@ -79,10 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/textOnPrimaryDark"
-        android:textSize="125sp"
+        android:textSize="100sp"
         app:layout_constraintBottom_toTopOf="@+id/idCurrentBalance"
-        android:layout_width="336dp"
-        android:layout_height="148dp"
         android:text="@string/defaultBalance"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"

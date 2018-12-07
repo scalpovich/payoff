@@ -10,14 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:textSize="18dp"
-        android:textAlignment="viewStart"
         android:padding="16dp"
         android:text="hello"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:onClick="onConnectToPeer"
-        android:textSize="20sp"
         android:gravity="center"/>
 
 </LinearLayout>
