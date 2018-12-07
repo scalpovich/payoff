@@ -30,6 +30,7 @@ public class LedgerActivity extends AppCompatActivity {
     private void uploadTransactions () {
         String ledgerDetails="";
         List<LedgerEntity> loadAllLedger = PayoffDatabase.getInstance().ledgerDao().loadAllLedger();
+        PayoffDatabase.getInstance().ledgerDao().loadAllLedger().size();
         for (LedgerEntity name :loadAllLedger) {
             String id = name.getId()+"";
             String amount = name.getAmount()+"";
@@ -38,11 +39,11 @@ public class LedgerActivity extends AppCompatActivity {
             String transactionDetails = name.getTransactionDetails();
             String transactionType = name.getTransactionType();
             ledgerDetails = id + amount +destination+sender+transactionDetails+transactionType;
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View viewTesting = inflater.inflate(R.layout.field,null);
+            TextView textView = viewTesting.findViewById(R.id.discoveredPeer);
+            textView.setText(ledgerDetails);
+            parentLinearLayout.addView(viewTesting, parentLinearLayout.getChildCount()-1);
         }
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewTesting = inflater.inflate(R.layout.field,null);
-        TextView textView = viewTesting.findViewById(R.id.discoveredPeer);
-        textView.setText(ledgerDetails);
-        parentLinearLayout.addView(viewTesting, parentLinearLayout.getChildCount()-1);
     }
 }
