@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.finastra.payments.payoff.ConnectToPeersActivity">
+    tools:context="com.finastra.payments.payoff.LedgerActivity">
 
     <ScrollView
-        android:id="@+id/scrollDiscoveredPeers"
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/discoveredPeers"
+            android:id="@+id/ledgerParent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+        </LinearLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.finastra.payments.payoff.db.CurrencyEntity;
+import com.finastra.payments.payoff.db.PayoffDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,8 +24,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -49,6 +55,7 @@ public class UpdateFXActivity extends AppCompatActivity {
     private Double IDR;
     private Double KRW;
     private Double HKD;
+    private Double EUR;
     private Double ZAR;
     private Double ISK;
     private Double CZK;
@@ -66,21 +73,65 @@ public class UpdateFXActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_current_exchange);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         parentLinearLayout = findViewById(R.id.currencyList);
-        Button updateButton = (Button)findViewById(R.id.updateButton);
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateFX();
-            }
-        });
+
         new getUpdateExchangeRates().execute();
+        updateFX();
     }
+    private HashMap<String, Double> defaultValue(){
+        currency_map = new HashMap<String,Double>();
+        currency_map.put("BGN",0.0326630816);
+        currency_map.put("CAD",0.0251778617);
+        currency_map.put("BRL",0.072968369);
+        currency_map.put("HUF",5.4024850529);
+        currency_map.put("DKK",0.1246367614);
+        currency_map.put("JPY",2.1428571429);
+        currency_map.put("ILS",0.0706319516);
+        currency_map.put("TRY",0.1009602859);
+        currency_map.put("RON",0.0777046662);
+        currency_map.put("GBP",0.0148443502);
+        currency_map.put("PHP",1.0);
+        currency_map.put("HRK",0.1235679214);
+        currency_map.put("NOK",0.1611276262);
+        currency_map.put("ZAR",0.2611409867);
+        currency_map.put("MXN",0.3879254484);
+        currency_map.put("AUD",0.0260012024);
+        currency_map.put("USD",0.0189618892);
+        currency_map.put("KRW",21.1161027422);
+        currency_map.put("HKD",0.1481261899);
+        currency_map.put("EUR",0.0167006246);
+        currency_map.put("ISK",2.3280670697);
+        currency_map.put("CZK",0.4323123685);
+        currency_map.put("THB",0.621096229);
+        currency_map.put("MYR",0.0787684959);
+        currency_map.put("NZD",0.0273856842);
+        currency_map.put("PLN",0.0715220949);
+        currency_map.put("CHF",0.0189184676);
+        currency_map.put("SEK",0.1699338655);
+        currency_map.put("CNY",0.1300110224);
+        currency_map.put("SGD",0.0259193694);
+        currency_map.put("INR",1.3371522095);
+        currency_map.put("IDR",272.9563445673);
+        currency_map.put("RUB",1.266550319);
+        return  currency_map;
+    }
+    private HashMap<String,Double> loadFromDatabase(){
+        currency_map = new HashMap<String,Double>();
+        List<CurrencyEntity> datalist = PayoffDatabase.getInstance().currencyDao().loadAllCurrency();
+        for(CurrencyEntity cE : datalist){
+            if(!datalist.contains(cE.getCurrencyName()))
+            currency_map.put(cE.getCurrencyName(), cE.getValue());
+        }
+        return  currency_map;
+    }
+  
     private void updateFX(){
-
-
+        currency_map = loadFromDatabase();
+        if(currency_map.size() == 0){
+            currency_map = defaultValue();
+        }
         Iterator it = currency_map.entrySet().iterator();
-
         for (int i = 0; it.hasNext();i++) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
 
@@ -88,32 +139,21 @@ public class UpdateFXActivity extends AppCompatActivity {
                 continue;
             }
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.field, null);
-            TextView textView = rowView.findViewById(R.id.discoveredPeer);
-            textView.setText(pair.getKey() +"         " + pair.getValue());
-            textView.setTag(i);
+            View rowView = inflater.inflate(R.layout.content_currency, null);
+            View columnView = inflater.inflate(R.layout.content_currency, null);
+            TextView fx = columnView.findViewById(R.id.fx);
+            TextView rate = columnView.findViewById(R.id.rate);
+            fx.setText(pair.getKey() + "");
+            rate.setText(""+pair.getValue());
+            rowView.setTag(i);
             // Add the new row before the add field button.
-            parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+            parentLinearLayout.addView(columnView, parentLinearLayout.getChildCount()-1);
         }
 
     }
-    /**
-     * This method only converts currency balance to peso
-     *
-     * @param currency
-     * @return
-     */
     public Double convertBalanceToPeso(String currency, Double balance) {
         return balance / currency_map.get(currency);
     }
-
-    /**
-     * This method only converts currency base from peso, to change foreign to another foreign
-     * convert amount to peso first
-     *
-     * @param currency
-     * @return
-     */
     public Double convertToForeignExchangeRate(String currency, Double balance) {
         return balance * currency_map.get(currency);
     }
@@ -184,6 +224,7 @@ public class UpdateFXActivity extends AppCompatActivity {
                     IDR = jsonObject.getDouble("IDR");
                     KRW = jsonObject.getDouble("KRW");
                     HKD = jsonObject.getDouble("HKD");
+                    EUR = jsonObject.getDouble("EUR");
                     ZAR = jsonObject.getDouble("ZAR");
                     ISK = jsonObject.getDouble("ISK");
                     CZK = jsonObject.getDouble("CZK");
@@ -217,6 +258,7 @@ public class UpdateFXActivity extends AppCompatActivity {
                     currency_map.put("IDR", IDR);
                     currency_map.put("KRW", KRW);
                     currency_map.put("HKD", HKD);
+                    currency_map.put("EUR", EUR);
                     currency_map.put("ZAR", ZAR);
                     currency_map.put("ISK", ISK);
                     currency_map.put("CZK", CZK);
@@ -230,7 +272,18 @@ public class UpdateFXActivity extends AppCompatActivity {
                     currency_map.put("SGD", SGD);
                     currency_map.put("CHF", CHF);
                     currency_map.put("INR", INR);
+                    updateFX();
 
+                    Iterator it = currency_map.entrySet().iterator();
+                    final List<CurrencyEntity> currencyEntities = new ArrayList<CurrencyEntity>();
+                    for (int i = 0; it.hasNext(); i++) {
+                        HashMap.Entry pair = (HashMap.Entry) it.next();
+                        currencyEntities.add(new CurrencyEntity(pair.getKey().toString(), ((Double) pair.getValue()).doubleValue()));
+                    }
+                    PayoffDatabase.getInstance().runInTransaction(() -> {
+                        PayoffDatabase.getInstance().currencyDao().insertAll(currencyEntities);
+                    });
+                    currency_map.clear();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

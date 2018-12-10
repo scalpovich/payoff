@@ -2,10 +2,10 @@ package com.finastra.payments.payoff;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class AccountActivity extends AppCompatActivity
@@ -27,6 +28,7 @@ public class AccountActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         onlineBalance = findViewById(R.id.onlineBalance);
 
         //initial balance
@@ -105,13 +107,15 @@ public class AccountActivity extends AppCompatActivity
             Intent intent = new Intent (AccountActivity.this,MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.navFxChange) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.navSupport) {
-
+            Intent intent = new Intent (this,UpdateFXActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navTransactionHistory) {
+            Intent intent = new Intent (this,LedgerActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.navLogut) {
+            Intent intent = new Intent (this,MainActivity.class);
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifiManager.setWifiEnabled(false);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

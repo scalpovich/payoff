@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface CurrencyDao {
     @Query("SELECT * FROM currency")
-    LiveData<List<CurrencyEntity>> loadAllCurrency();
+    List<CurrencyEntity> loadAllCurrency();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<CurrencyEntity> currencies);
