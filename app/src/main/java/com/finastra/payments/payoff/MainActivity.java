@@ -174,6 +174,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void onWithdraw (View v) {
+        Intent intent = new Intent(MainActivity.this,OnlineBalanceTransferActivity.class);
+        startActivity(intent);
+    }
+
     private HashMap<String, Double> loadCurrencyFromDatabase(){
         PayoffDatabase.getInstance().currencyDao().loadAllCurrency();
         currency_map = new HashMap<String,Double>();

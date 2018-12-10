@@ -27,13 +27,14 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 
 
 public class SendPaymentActivity extends AppCompatActivity {
 
     public static final int SERVERPORT = 6000;
-    private static final int SOCKET_TIMEOUT = 15000;
+    private static final int SOCKET_TIMEOUT = 3600000;
     public static final String LOG_INFO = "SendPaymentActivity";
 
     TextView amountToSend;
@@ -41,6 +42,7 @@ public class SendPaymentActivity extends AppCompatActivity {
     String SERVER_IP;
 
     public String amountToSendStr;
+    private Socket socket;
 
     boolean owner;
 
@@ -110,10 +112,11 @@ public class SendPaymentActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String hostAddress = SERVER_IP;
-            Socket socket = new Socket();
+
             int port = SERVERPORT;
             PayoffDatabase.getInstance().runInTransaction(() -> {
                 try {
+                    socket = new Socket();
                     socket.bind(null);
                     socket.connect((new InetSocketAddress(hostAddress, port)), SOCKET_TIMEOUT);
                     Log.i("CONNECTED", "Connection successful");
@@ -121,8 +124,11 @@ public class SendPaymentActivity extends AppCompatActivity {
                     outputStream.write(amountToSendStr.getBytes());
                     PayoffDatabase.getInstance().ledgerDao().insertAll(Arrays.asList(new LedgerEntity("Ron","Rahm", TransactionType.DEBIT.name(), "Sending money", Double.parseDouble(amountToSendStr))));
                     Log.i("SENT TO CLIENT",amountToSendStr);
-                } catch (IOException e) {
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
                     throw new OperationCanceledException("Unable to send transaction");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 } finally {
                     if (socket != null) {
                         if (socket.isConnected()) {

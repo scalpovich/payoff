@@ -25,7 +25,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -71,8 +71,13 @@
         <activity
             android:name=".UpdateFXActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".LedgerActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".LedgerActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OnlineBalanceTransferActivity"
+            android:label="@string/title_activity_online_balance_transfer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
