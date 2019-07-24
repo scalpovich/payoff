@@ -1,4 +1,4 @@
-package com.laurelcrown.payoff.payoff;
+package com.laurelcrown.payoff;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.laurelcrown.payoff.payoff.com.laurelcrown.payoff.ReceivePaymentActivity"
+    tools:context="com.laurelcrown.payoff.com.laurelcrown.payoff.ReceivePaymentActivity"
     tools:showIn="@layout/activity_receive_payment">
 
     <TextView

@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.R;
 
 public class AccountActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

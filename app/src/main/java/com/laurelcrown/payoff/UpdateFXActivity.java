@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.laurelcrown.payoff.db.CurrencyEntity;
 import com.laurelcrown.payoff.db.PayoffDatabase;
-import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.laurelcrown.payoff.db.LedgerEntity;
 import com.laurelcrown.payoff.db.PayoffDatabase;
 import com.laurelcrown.payoff.db.TransactionType;
-import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.R;
 
 import java.io.IOException;
 import java.io.OutputStream;
