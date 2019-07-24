@@ -1,4 +1,4 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.finastra.payments.payoff.R;
+import com.laurelcrown.payoff.payoff.R;
 
 import java.util.ArrayList;
 import java.util.List;

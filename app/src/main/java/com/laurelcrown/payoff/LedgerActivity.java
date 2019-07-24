@@ -1,4 +1,4 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,9 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.finastra.payments.payoff.db.LedgerEntity;
-import com.finastra.payments.payoff.db.PayoffDatabase;
+import com.laurelcrown.payoff.db.LedgerEntity;
+import com.laurelcrown.payoff.db.PayoffDatabase;
+import com.laurelcrown.payoff.payoff.R;
 
 import java.util.List;
 

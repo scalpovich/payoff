@@ -1,4 +1,4 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.finastra.payments.payoff.db.CurrencyEntity;
-import com.finastra.payments.payoff.db.PayoffDatabase;
+import com.laurelcrown.payoff.db.CurrencyEntity;
+import com.laurelcrown.payoff.db.PayoffDatabase;
+import com.laurelcrown.payoff.payoff.R;
 
 import java.util.HashMap;
 import java.util.List;

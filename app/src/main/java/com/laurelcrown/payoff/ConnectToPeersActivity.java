@@ -1,10 +1,9 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -18,15 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.finastra.payments.wifidirect.WiFiDirectBroadcastReceiver;
+import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.wifidirect.WiFiDirectBroadcastReceiver;
 
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 

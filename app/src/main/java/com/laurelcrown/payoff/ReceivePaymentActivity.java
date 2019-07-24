@@ -1,6 +1,5 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -8,22 +7,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.finastra.payments.payoff.db.LedgerEntity;
-import com.finastra.payments.payoff.db.PayoffDatabase;
-import com.finastra.payments.payoff.db.TransactionType;
+import com.laurelcrown.payoff.db.LedgerEntity;
+import com.laurelcrown.payoff.db.PayoffDatabase;
+import com.laurelcrown.payoff.db.TransactionType;
+import com.laurelcrown.payoff.payoff.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;

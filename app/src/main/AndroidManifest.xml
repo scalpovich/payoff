@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.finastra.payments.payoff">
+    package="com.laurelcrown.payoff.payoff">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -23,18 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.LoginActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.laurelcrown.com.laurelcrown.payoff.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.finastra.payments.payoff.MainActivity" />
+                android:value="com.laurelcrown.com.laurelcrown.payoff.MainActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,39 +43,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ConnectToPeersActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.laurelcrown.com.laurelcrown.payoff.ConnectToPeersActivity"
+            android:parentActivityName="com.laurelcrown.com.laurelcrown.payoff.MainActivity" />
         <activity
-            android:name=".TransactionActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.TransactionActivity"
             android:label="@string/title_activity_transaction"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AccountActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.AccountActivity"
             android:label="@string/title_activity_account"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.laurelcrown.com.laurelcrown.payoff.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.finastra.payments.payoff.MainActivity" />
+                android:value="com.laurelcrown.com.laurelcrown.payoff.MainActivity" />
         </activity>
         <activity
-            android:name=".OfflineBalanceTransferActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.OfflineBalanceTransferActivity"
             android:label="@string/title_activity_offline_balance_transfer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SendPaymentActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.SendPaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ReceivePaymentActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.ReceivePaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".UpdateFXActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.laurelcrown.com.laurelcrown.payoff.UpdateFXActivity"
+            android:parentActivityName="com.laurelcrown.com.laurelcrown.payoff.MainActivity" />
         <activity
-            android:name=".LedgerActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.laurelcrown.com.laurelcrown.payoff.LedgerActivity"
+            android:parentActivityName="com.laurelcrown.com.laurelcrown.payoff.MainActivity" />
         <activity
-            android:name=".OnlineBalanceTransferActivity"
+            android:name="com.laurelcrown.com.laurelcrown.payoff.OnlineBalanceTransferActivity"
             android:label="@string/title_activity_online_balance_transfer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

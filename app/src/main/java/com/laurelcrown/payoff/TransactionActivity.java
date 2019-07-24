@@ -1,8 +1,5 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,33 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.TextView;
 
-public class AccountActivity extends AppCompatActivity
+import com.laurelcrown.payoff.payoff.R;
+
+public class TransactionActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private TextView onlineBalance;
-    public static String onlineBalanceStr="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_transaction);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        onlineBalance = findViewById(R.id.onlineBalance);
-
-        //initial balance
-        if (onlineBalanceStr.equals("")) {
-            onlineBalanceStr = onlineBalance.getText() +"";
-        } else {
-            onlineBalance.setText(onlineBalanceStr);
-        }
-
-        if(getIntent().hasExtra("newBalance")){
-            onlineBalanceStr = getIntent().getExtras().getString("newBalance");
-            onlineBalance.setText(onlineBalanceStr);
-        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,7 +59,7 @@ public class AccountActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.account, menu);
+        getMenuInflater().inflate(R.menu.transaction, menu);
         return true;
     }
 
@@ -103,28 +84,22 @@ public class AccountActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navHome) {
-            Intent intent = new Intent (AccountActivity.this,MainActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navFxChange) {
-            Intent intent = new Intent (this,UpdateFXActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navTransactionHistory) {
-            Intent intent = new Intent (this,LedgerActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.navLogut) {
-            Intent intent = new Intent (this,MainActivity.class);
-            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            wifiManager.setWifiEnabled(false);
-        }
+/*        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void onLoadOfflineBalance (View v) {
-        Intent intent = new Intent (AccountActivity.this,OfflineBalanceTransferActivity.class);
-        startActivity(intent);
     }
 }

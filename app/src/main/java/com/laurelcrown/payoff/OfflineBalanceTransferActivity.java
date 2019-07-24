@@ -1,4 +1,4 @@
-package com.finastra.payments.payoff;
+package com.laurelcrown.payoff;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.laurelcrown.payoff.payoff.R;
 
 
 public class OfflineBalanceTransferActivity extends AppCompatActivity {
