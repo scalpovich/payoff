@@ -88,4 +88,6 @@
     <string name="title_activity_receive_payment">ReceivePaymentActivity</string>
     <string name="buttonDiscover">DISCOVER</string>
     <string name="transactionHistory">Transaction History</string>
+    <string name="buttonWithdraw">WITHDRAW</string>
+    <string name="title_activity_online_balance_transfer">OnlineBalanceTransferActivity</string>
 </resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.finastra.payments.payoff.OnlineBalanceTransferActivity"
+    tools:showIn="@layout/activity_online_balance_transfer">
+    <TextView
+        android:id="@+id/textViewFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:gravity="left"
+        android:text="From:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TextViewAccountDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Insert Account Details here"
+        android:textAlignment="center"
+        android:textColor="@color/regularText"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFrom" />
+
+    <TextView
+        android:id="@+id/TextViewAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:text="Amount:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAccountDetails"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAmount">
+
+        <EditText
+            android:id="@+id/amountToOnlineBalanceTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/defaultValueForInputAmount"
+            android:textColor="@color/regularText"
+            android:textSize="20dp"
+            tools:targetApi="o" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnOnlineTransfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:background="@drawable/round_shape_btn"
+        android:gravity="center"
+        android:onClick="onBalanceOnlineTransfer"
+        android:text="@string/buttonWithdraw"
+        android:textColor="@color/textOnPrimaryDark"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
+</android.support.constraint.ConstraintLayout>
