@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.laurelcrown.payoff.payoff.com.laurelcrown.payoff.OnlineBalanceTransferActivity"
+    tools:context="com.laurelcrown.payoff.com.laurelcrown.payoff.OnlineBalanceTransferActivity"
     tools:showIn="@layout/activity_online_balance_transfer">
     <TextView
         android:id="@+id/textViewFrom"

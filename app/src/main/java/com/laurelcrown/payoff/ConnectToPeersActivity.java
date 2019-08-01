@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.R;
 import com.laurelcrown.payoff.wifidirect.WiFiDirectBroadcastReceiver;
 
 import java.util.ArrayList;

@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.laurelcrown.payoff.payoff.R;
+import com.laurelcrown.payoff.R;
 
 import java.util.ArrayList;
 import java.util.List;
